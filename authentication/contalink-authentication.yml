@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/contalink-openapi-original.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: APIKey
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: Llave de API relacionada al usuario que hace la petición.
+  sources:
+  - openapi/contalink-openapi-original.json
