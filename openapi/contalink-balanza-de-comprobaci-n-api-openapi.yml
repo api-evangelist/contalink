@@ -1,0 +1,299 @@
+openapi: 3.0.0
+info:
+  description: '# Introducción
+
+    Documentación del API de Contalink
+
+
+    # Autenticación
+
+
+    El método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.
+
+
+    <SecurityDefinitions />
+
+    '
+  title: API Contalink Balanza de comprobación API
+  version: 1.0.4
+  x-logo:
+    altText: Contalink
+    url: http://apidocs.contalink.com/logocontalinknew.svg
+servers:
+- description: prod
+  url: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+tags:
+- description: Obtiene la balanza de comprobación según los parámetros enviados
+  name: Balanza de comprobación
+paths:
+  /accounting/trial-balance/:
+    get:
+      description: Obtiene la balanza de comprobación según los parámetros enviados
+      parameters:
+      - description: Fecha inicial para obtener la balanza de comprobación (YYYY-MM-DD)
+        in: query
+        name: start_date
+        required: true
+        schema:
+          format: date
+          type: string
+      - description: Fecha final para obtener la balanza de comprobación (YYYY-MM-DD)
+        in: query
+        name: end_date
+        required: true
+        schema:
+          format: date
+          type: string
+      - description: Indica como se quieren tratar las transacciones realizadas en el periodo 13. Las opciones son Incluir (I) u Omitir (O)
+        in: query
+        name: period
+        required: true
+        schema:
+          enum:
+          - O
+          - I
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrialBalance'
+          description: 0 indica error, 1 indica éxito.
+      security:
+      - APIKey: []
+      summary: Obtener balanza de comprobación
+      tags:
+      - Balanza de comprobación
+      x-codeSamples:
+      - lang: C
+        source: "CURL *curl;\nCURLcode res;\ncurl = curl_easy_init();\nif(curl) {\n   curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, \"GET\");\n   curl_easy_setopt(curl, CURLOPT_URL, \"%7B%7BbaseUrl%7D%7D/accounting/trial-balance/?start_date=%3Cdate%3E&end_date=%3Cdate%3E&period=%3Cstring%3E\");\n   curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);\n   curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, \"https\");\n   struct curl_slist *headers = NULL;\n   headers = curl_slist_append(headers, \"Accept: application/json\");\n   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);\n   res = curl_easy_perform(curl);\n}\ncurl_easy_cleanup(curl);\n"
+      - lang: C#
+        source: 'var client = new RestClient("{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>");
+
+          client.Timeout = -1;
+
+          var request = new RestRequest(Method.GET);
+
+          request.AddHeader("Accept", "application/json");
+
+          IRestResponse response = client.Execute(request);
+
+          Console.WriteLine(response.Content);'
+      - lang: Curl
+        source: 'curl --location -g --request GET ''{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>'' \
+
+          --header ''Accept: application/json'''
+      - lang: Dart
+        source: "var headers = {\n   'Accept': 'application/json'\n};\nvar request = http.Request('GET', Uri.parse('{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>'));\n\nrequest.headers.addAll(headers);\n\nhttp.StreamedResponse response = await request.send();\n\nif (response.statusCode == 200) {\n   print(await response.stream.bytesToString());\n}\nelse {\n   print(response.reasonPhrase);\n}\n"
+      - lang: Go
+        source: "package main\n\nimport (\n   \"fmt\"\n   \"net/http\"\n   \"io/ioutil\"\n)\n\nfunc main() {\n\n   url := \"%7B%7BbaseUrl%7D%7D/accounting/trial-balance/?start_date=%3Cdate%3E&end_date=%3Cdate%3E&period=%3Cstring%3E\"\n   method := \"GET\"\n\n   client := &http.Client {\n   }\n   req, err := http.NewRequest(method, url, nil)\n\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   req.Header.Add(\"Accept\", \"application/json\")\n\n   res, err := client.Do(req)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   defer res.Body.Close()\n\n   body, err := ioutil.ReadAll(res.Body)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   fmt.Println(string(body))\n}"
+      - lang: Http
+        source: 'GET /accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string> HTTP/1.1
+
+          Host: {{baseUrl}}
+
+          Accept: application/json'
+      - lang: Java
+        source: "OkHttpClient client = new OkHttpClient().newBuilder()\n   .build();\nRequest request = new Request.Builder()\n   .url(\"{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>\")\n   .method(\"GET\", null)\n   .addHeader(\"Accept\", \"application/json\")\n   .build();\nResponse response = client.newCall(request).execute();"
+      - lang: Java
+        source: "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.get(\"{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>\")\n   .header(\"Accept\", \"application/json\")\n   .asString();\n"
+      - lang: JavaScript
+        source: "var myHeaders = new Headers();\nmyHeaders.append(\"Accept\", \"application/json\");\n\nvar requestOptions = {\n   method: 'GET',\n   headers: myHeaders,\n   redirect: 'follow'\n};\n\nfetch(\"{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>\", requestOptions)\n   .then(response => response.text())\n   .then(result => console.log(result))\n   .catch(error => console.log('error', error));"
+      - lang: JavaScript
+        source: "\nvar xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function() {\n   if(this.readyState === 4) {\n      console.log(this.responseText);\n   }\n});\n\nxhr.open(\"GET\", \"%7B%7BbaseUrl%7D%7D/accounting/trial-balance/?start_date=%3Cdate%3E&end_date=%3Cdate%3E&period=%3Cstring%3E\");\nxhr.setRequestHeader(\"Accept\", \"application/json\");\n\nxhr.send();"
+      - lang: JavaScript
+        source: "var settings = {\n   \"url\": \"{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>\",\n   \"method\": \"GET\",\n   \"timeout\": 0,\n   \"headers\": {\n      \"Accept\": \"application/json\"\n   },\n};\n\n$.ajax(settings).done(function (response) {\n   console.log(response);\n});"
+      - lang: NodeJS
+        source: "var axios = require('axios');\n\nvar config = {\n   method: 'get',\n   url: '{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>',\n   headers: { \n      'Accept': 'application/json'\n   }\n};\n\naxios(config)\n.then(function (response) {\n   console.log(JSON.stringify(response.data));\n})\n.catch(function (error) {\n   console.log(error);\n});\n"
+      - lang: NodeJS
+        source: "var https = require('follow-redirects').https;\nvar fs = require('fs');\n\nvar options = {\n   'method': 'GET',\n   'hostname': '{{baseUrl}}',\n   'path': '/accounting/trial-balance/?start_date=%3Cdate%3E&end_date=%3Cdate%3E&period=%3Cstring%3E',\n   'headers': {\n      'Accept': 'application/json'\n   },\n   'maxRedirects': 20\n};\n\nvar req = https.request(options, function (res) {\n   var chunks = [];\n\n   res.on(\"data\", function (chunk) {\n      chunks.push(chunk);\n   });\n\n   res.on(\"end\", function (chunk) {\n      var body = Buffer.concat(chunks);\n      console.log(body.toString());\n   });\n\n   res.on(\"error\", function (error) {\n      console.error(error);\n   });\n});\n\nreq.end();"
+      - lang: NodeJS
+        source: "var request = require('request');\nvar options = {\n   'method': 'GET',\n   'url': '{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>',\n   'headers': {\n      'Accept': 'application/json'\n   }\n};\nrequest(options, function (error, response) {\n   if (error) throw new Error(error);\n   console.log(response.body);\n});\n"
+      - lang: NodeJS
+        source: "var unirest = require('unirest');\nvar req = unirest('GET', '{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>')\n   .headers({\n      'Accept': 'application/json'\n   })\n   .end(function (res) { \n      if (res.error) throw new Error(res.error); \n      console.log(res.raw_body);\n   });\n"
+      - lang: Objective-C
+        source: "#import <Foundation/Foundation.h>\n\ndispatch_semaphore_t sema = dispatch_semaphore_create(0);\n\nNSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@\"%7B%7BbaseUrl%7D%7D/accounting/trial-balance/?start_date=%3Cdate%3E&end_date=%3Cdate%3E&period=%3Cstring%3E\"]\n   cachePolicy:NSURLRequestUseProtocolCachePolicy\n   timeoutInterval:10.0];\nNSDictionary *headers = @{\n   @\"Accept\": @\"application/json\"\n};\n\n[request setAllHTTPHeaderFields:headers];\n\n[request setHTTPMethod:@\"GET\"];\n\nNSURLSession *session = [NSURLSession sharedSession];\nNSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request\ncompletionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {\n   if (error) {\n      NSLog(@\"%@\", error);\n      dispatch_semaphore_signal(sema);\n   } else {\n      NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;\n      NSError *parseError = nil;\n      NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];\n      NSLog(@\"%@\",responseDictionary);\n      dispatch_semaphore_signal(sema);\n   }\n}];\n[dataTask resume];\ndispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);"
+      - lang: OcaML
+        source: "open Lwt\nopen Cohttp\nopen Cohttp_lwt_unix\n\nlet reqBody = \n   let uri = Uri.of_string \"%7B%7BbaseUrl%7D%7D/accounting/trial-balance/?start_date=%3Cdate%3E&end_date=%3Cdate%3E&period=%3Cstring%3E\" in\n   let headers = Header.init ()\n      |> fun h -> Header.add h \"Accept\" \"application/json\"\n   in\n   Client.call ~headers `GET uri >>= fun (_resp, body) ->\n   body |> Cohttp_lwt.Body.to_string >|= fun body -> body\n\nlet () =\n   let respBody = Lwt_main.run reqBody in\n   print_endline (respBody)"
+      - lang: PHP
+        source: "<?php\nrequire_once 'HTTP/Request2.php';\n$request = new HTTP_Request2();\n$request->setUrl('{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>');\n$request->setMethod(HTTP_Request2::METHOD_GET);\n$request->setConfig(array(\n   'follow_redirects' => TRUE\n));\n$request->setHeader(array(\n   'Accept' => 'application/json'\n));\ntry {\n   $response = $request->send();\n   if ($response->getStatus() == 200) {\n      echo $response->getBody();\n   }\n   else {\n      echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .\n      $response->getReasonPhrase();\n   }\n}\ncatch(HTTP_Request2_Exception $e) {\n   echo 'Error: ' . $e->getMessage();\n}"
+      - lang: PHP
+        source: "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n   CURLOPT_URL => '%7B%7BbaseUrl%7D%7D/accounting/trial-balance/?start_date=%3Cdate%3E&end_date=%3Cdate%3E&period=%3Cstring%3E',\n   CURLOPT_RETURNTRANSFER => true,\n   CURLOPT_ENCODING => '',\n   CURLOPT_MAXREDIRS => 10,\n   CURLOPT_TIMEOUT => 0,\n   CURLOPT_FOLLOWLOCATION => true,\n   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n   CURLOPT_CUSTOMREQUEST => 'GET',\n   CURLOPT_HTTPHEADER => array(\n      'Accept: application/json'\n   ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;\n"
+      - lang: PHP
+        source: "<?php\n$client = new http\\Client;\n$request = new http\\Client\\Request;\n$request->setRequestUrl('{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>');\n$request->setRequestMethod('GET');\n$request->setOptions(array());\n$request->setHeaders(array(\n   'Accept' => 'application/json'\n));\n$client->enqueue($request)->send();\n$response = $client->getResponse();\necho $response->getBody();\n"
+      - lang: PowerShell
+        source: '$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+
+          $headers.Add("Accept", "application/json")
+
+
+          $response = Invoke-RestMethod ''{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>'' -Method ''GET'' -Headers $headers
+
+          $response | ConvertTo-Json'
+      - lang: Python
+        source: "import requests\n\nurl = \"{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>\"\n\npayload={}\nheaders = {\n   'Accept': 'application/json'\n}\n\nresponse = requests.request(\"GET\", url, headers=headers, data=payload)\n\nprint(response.text)\n"
+      - lang: Python
+        source: "import http.client\n\nconn = http.client.HTTPSConnection(\"{{baseUrl}}\")\npayload = ''\nheaders = {\n   'Accept': 'application/json'\n}\nconn.request(\"GET\", \"/accounting/trial-balance/?start_date=%3Cdate%3E&end_date=%3Cdate%3E&period=%3Cstring%3E\", payload, headers)\nres = conn.getresponse()\ndata = res.read()\nprint(data.decode(\"utf-8\"))"
+      - lang: Ruby
+        source: 'require "uri"
+
+          require "net/http"
+
+
+          url = URI("{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>")
+
+
+          http = Net::HTTP.new(url.host, url.port);
+
+          request = Net::HTTP::Get.new(url)
+
+          request["Accept"] = "application/json"
+
+
+          response = http.request(request)
+
+          puts response.read_body
+
+          '
+      - lang: Shell
+        source: "http --follow --timeout 3600 GET '{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>' \\\n Accept:'application/json'"
+      - lang: Shell
+        source: "wget --no-check-certificate --quiet \\\n   --method GET \\\n   --timeout=0 \\\n   --header 'Accept: application/json' \\\n    '{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>'"
+      - lang: Swift
+        source: "import Foundation\n#if canImport(FoundationNetworking)\nimport FoundationNetworking\n#endif\n\nvar semaphore = DispatchSemaphore (value: 0)\n\nvar request = URLRequest(url: URL(string: \"{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>\")!,timeoutInterval: Double.infinity)\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Accept\")\n\nrequest.httpMethod = \"GET\"\n\nlet task = URLSession.shared.dataTask(with: request) { data, response, error in \n   guard let data = data else {\n      print(String(describing: error))\n      semaphore.signal()\n      return\n   }\n   print(String(data: data, encoding: .utf8)!)\n   semaphore.signal()\n}\n\ntask.resume()\nsemaphore.wait()\n"
+components:
+  schemas:
+    TrialBalance:
+      properties:
+        message:
+          default: ''
+          description: Mensaje regresado por la petición
+          title: Mensaje
+          type: string
+        status:
+          default: 0
+          description: El status de la petición 0. Error, 1. Éxito
+          title: Status
+          type: integer
+        trial_balance:
+          description: Contiene la balanza de comprobación solicitada
+          properties:
+            items:
+              default: []
+              description: Cuentas contables incluidas en la balanza de comprobación
+              items:
+                anyOf:
+                - default: {}
+                  description: Cuenta de la balanza de comprobación
+                  properties:
+                    cuenta:
+                      default: ''
+                      description: Nombre de la cuenta como está registada en el árbol de cuentas
+                      title: Nombre de la cuenta
+                      type: string
+                    cuenta_numero:
+                      default: ''
+                      description: Número de la cuenta como está registada en el árbol de cuentas
+                      title: Número de cuenta
+                      type: string
+                    debe:
+                      default: ''
+                      description: Monto en la parte del debe para las fechas solicitadas
+                      title: Debe
+                      type: string
+                    final_debe:
+                      default: ''
+                      description: Monto final de la parte del debe de la cuenta contable
+                      title: Debe Final
+                      type: string
+                    final_haber:
+                      default: ''
+                      description: Monto final de la parte del haber de la cuenta contable
+                      title: Haber Final
+                      type: string
+                    final_saldo:
+                      default: ''
+                      description: Saldo final de la cuenta contable
+                      title: Saldo Final
+                      type: string
+                    haber:
+                      default: ''
+                      description: Monto en la parte del haber para las fechas solicitadas
+                      title: Haber
+                      type: string
+                    id:
+                      default: ''
+                      description: ID interno de la cuenta
+                      format: int32
+                      title: ID cuenta
+                      type: number
+                    inicial_debe:
+                      default: ''
+                      description: Monto inicial de la parte del debe de la cuenta contable
+                      title: Debe Inicial
+                      type: string
+                    inicial_haber:
+                      default: ''
+                      description: Monto inicial de la parte del haber de la cuenta contable
+                      title: Haber Inicial
+                      type: string
+                    inicial_saldo:
+                      default: ''
+                      description: Saldo inicial de la cuenta contable
+                      title: Saldo Inicial
+                      type: string
+                    nivel_cuenta:
+                      default: ''
+                      description: Nivel de cuenta en el árbol de cuentas. 1.- Título, 2.- Mayor, 3.- Subcuenta, 4.- Subtitulo
+                      format: int32
+                      title: Nivel cuenta
+                      type: string
+                    nivel_padre:
+                      default: ''
+                      description: Nivel de cuenta que tiene el padre en el árbol de cuentas. 1.- Título, 2.- Mayor, 3.- Subcuenta, 4.- Subtitulo
+                      format: int32
+                      title: Nivel del padre
+                      type: string
+                    padre_id:
+                      default: ''
+                      description: ID del padre de la cuenta en cuestión
+                      format: int32
+                      title: ID cuenta padre
+                      type: number
+                    saldo:
+                      default: ''
+                      description: Saldo de la cuenta contable para las fechas solicitadas
+                      title: Saldo
+                      type: string
+                  title: Cuenta
+                  type: object
+              title: Cuentas
+              type: array
+          title: Balanza de comprobación
+          type: object
+      title: TrialBalance Schema
+      type: object
+  securitySchemes:
+    APIKey:
+      description: Llave de API relacionada al usuario que hace la petición.
+      in: header
+      name: Authorization
+      type: apiKey
+x-tagGroups:
+- name: Conciliación
+  tags:
+  - Conciliación
+- name: Tesorería
+  tags:
+  - Movimientos bancarios
+- name: Documentos fiscales
+  tags:
+  - Listado de documentos fiscales
+  - Cargar un documento fiscal
+  - Status de documentos fiscales
+- name: Contabilidad
+  tags:
+  - Balanza de comprobación
+  - Pólizas manuales
+  - Saldo de una cuenta

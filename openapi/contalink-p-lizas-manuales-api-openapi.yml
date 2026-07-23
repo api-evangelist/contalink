@@ -1,0 +1,607 @@
+openapi: 3.0.0
+info:
+  description: '# Introducción
+
+    Documentación del API de Contalink
+
+
+    # Autenticación
+
+
+    El método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.
+
+
+    <SecurityDefinitions />
+
+    '
+  title: API Contalink Balanza de comprobación Pólizas manuales API
+  version: 1.0.4
+  x-logo:
+    altText: Contalink
+    url: http://apidocs.contalink.com/logocontalinknew.svg
+servers:
+- description: prod
+  url: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+tags:
+- description: Gestiona altas, bajas y cambios de las pólizas manuales.
+  name: Pólizas manuales
+paths:
+  /accounting/manual-accounting-policy/:
+    post:
+      description: Endpoint para crear pólizas manuales.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManualPolicy'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManualPolicyResponse'
+          description: 0 indica error, 1 indica éxito
+      security:
+      - APIKey: []
+      summary: Crea una póliza manual.
+      tags:
+      - Pólizas manuales
+      x-codeSamples:
+      - lang: C
+        source: "CURL *curl;\nCURLcode res;\ncurl = curl_easy_init();\nif(curl) {\n   curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, \"POST\");\n   curl_easy_setopt(curl, CURLOPT_URL, \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/\");\n   curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);\n   curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, \"https\");\n   struct curl_slist *headers = NULL;\n   headers = curl_slist_append(headers, \"Content-Type: application/json\");\n   headers = curl_slist_append(headers, \"Accept: application/json\");\n   headers = curl_slist_append(headers, \"Content-Length: \");\n   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);\n   const char *data = \"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\";\n   curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);\n   res = curl_easy_perform(curl);\n}\ncurl_easy_cleanup(curl);\n"
+      - lang: C#
+        source: 'var client = new RestClient("{{baseUrl}}/accounting/manual-accounting-policy/");
+
+          client.Timeout = -1;
+
+          var request = new RestRequest(Method.POST);
+
+          request.AddHeader("Content-Type", "application/json");
+
+          request.AddHeader("Accept", "application/json");
+
+          var body = @"{" + "\n" +
+
+          @"  ""record_date"": ""<date>""," + "\n" +
+
+          @"  ""description"": ""<string>""," + "\n" +
+
+          @"  ""accounting_records"": {" + "\n" +
+
+          @"    ""account_code"": ""<string>""," + "\n" +
+
+          @"    ""debit"": ""<number>""," + "\n" +
+
+          @"    ""credit"": ""<number>""" + "\n" +
+
+          @"  }" + "\n" +
+
+          @"}";
+
+          request.AddParameter("application/json", body,  ParameterType.RequestBody);
+
+          IRestResponse response = client.Execute(request);
+
+          Console.WriteLine(response.Content);'
+      - lang: Curl
+        source: "curl --location -g --request POST '{{baseUrl}}/accounting/manual-accounting-policy/' \\\n--header 'Content-Type: application/json' \\\n--header 'Accept: application/json' \\\n--data-raw '{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}'"
+      - lang: Dart
+        source: "var headers = {\n   'Content-Type': 'application/json',\n   'Accept': 'application/json'\n};\nvar request = http.Request('POST', Uri.parse('{{baseUrl}}/accounting/manual-accounting-policy/'));\nrequest.body = json.encode({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n});\nrequest.headers.addAll(headers);\n\nhttp.StreamedResponse response = await request.send();\n\nif (response.statusCode == 200) {\n   print(await response.stream.bytesToString());\n}\nelse {\n   print(response.reasonPhrase);\n}\n"
+      - lang: Go
+        source: "package main\n\nimport (\n   \"fmt\"\n   \"strings\"\n   \"net/http\"\n   \"io/ioutil\"\n)\n\nfunc main() {\n\n   url := \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/\"\n   method := \"POST\"\n\n   payload := strings.NewReader(`{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}`)\n\n   client := &http.Client {\n   }\n   req, err := http.NewRequest(method, url, payload)\n\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   req.Header.Add(\"Content-Type\", \"application/json\")\n   req.Header.Add(\"Accept\", \"application/json\")\n\n   res, err := client.Do(req)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   defer res.Body.Close()\n\n   body, err := ioutil.ReadAll(res.Body)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   fmt.Println(string(body))\n}"
+      - lang: Http
+        source: "POST /accounting/manual-accounting-policy/ HTTP/1.1\nHost: {{baseUrl}}\nContent-Type: application/json\nAccept: application/json\nContent-Length: 171\n\n{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}"
+      - lang: Java
+        source: "OkHttpClient client = new OkHttpClient().newBuilder()\n   .build();\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\");\nRequest request = new Request.Builder()\n   .url(\"{{baseUrl}}/accounting/manual-accounting-policy/\")\n   .method(\"POST\", body)\n   .addHeader(\"Content-Type\", \"application/json\")\n   .addHeader(\"Accept\", \"application/json\")\n   .addHeader(\"Content-Length\", \"\")\n   .build();\nResponse response = client.newCall(request).execute();"
+      - lang: Java
+        source: "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.post(\"{{baseUrl}}/accounting/manual-accounting-policy/\")\n   .header(\"Content-Type\", \"application/json\")\n   .header(\"Accept\", \"application/json\")\n   .header(\"Content-Length\", \"\")\n   .body(\"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\")\n   .asString();\n"
+      - lang: JavaScript
+        source: "var myHeaders = new Headers();\nmyHeaders.append(\"Content-Type\", \"application/json\");\nmyHeaders.append(\"Accept\", \"application/json\");\nmyHeaders.append(\"Content-Length\", \"\");\n\nvar raw = JSON.stringify({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n});\n\nvar requestOptions = {\n   method: 'POST',\n   headers: myHeaders,\n   body: raw,\n   redirect: 'follow'\n};\n\nfetch(\"{{baseUrl}}/accounting/manual-accounting-policy/\", requestOptions)\n   .then(response => response.text())\n   .then(result => console.log(result))\n   .catch(error => console.log('error', error));"
+      - lang: JavaScript
+        source: "var data = JSON.stringify({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n});\n\nvar xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function() {\n   if(this.readyState === 4) {\n      console.log(this.responseText);\n   }\n});\n\nxhr.open(\"POST\", \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/\");\nxhr.setRequestHeader(\"Content-Type\", \"application/json\");\nxhr.setRequestHeader(\"Accept\", \"application/json\");\nxhr.setRequestHeader(\"Content-Length\", \"\");\n\nxhr.send(data);"
+      - lang: JavaScript
+        source: "var settings = {\n   \"url\": \"{{baseUrl}}/accounting/manual-accounting-policy/\",\n   \"method\": \"POST\",\n   \"timeout\": 0,\n   \"headers\": {\n      \"Content-Type\": \"application/json\",\n      \"Accept\": \"application/json\",\n      \"Content-Length\": \"\"\n   },\n   \"data\": JSON.stringify({\n      \"record_date\": \"<date>\",\n      \"description\": \"<string>\",\n      \"accounting_records\": {\n         \"account_code\": \"<string>\",\n         \"debit\": \"<number>\",\n         \"credit\": \"<number>\"\n      }\n   }),\n};\n\n$.ajax(settings).done(function (response) {\n   console.log(response);\n});"
+      - lang: NodeJS
+        source: "var axios = require('axios');\nvar data = JSON.stringify({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n});\n\nvar config = {\n   method: 'post',\n   url: '{{baseUrl}}/accounting/manual-accounting-policy/',\n   headers: { \n      'Content-Type': 'application/json', \n      'Accept': 'application/json', \n      'Content-Length': ''\n   },\n   data : data\n};\n\naxios(config)\n.then(function (response) {\n   console.log(JSON.stringify(response.data));\n})\n.catch(function (error) {\n   console.log(error);\n});\n"
+      - lang: NodeJS
+        source: "var https = require('follow-redirects').https;\nvar fs = require('fs');\n\nvar options = {\n   'method': 'POST',\n   'hostname': '{{baseUrl}}',\n   'path': '/accounting/manual-accounting-policy/',\n   'headers': {\n      'Content-Type': 'application/json',\n      'Accept': 'application/json',\n      'Content-Length': ''\n   },\n   'maxRedirects': 20\n};\n\nvar req = https.request(options, function (res) {\n   var chunks = [];\n\n   res.on(\"data\", function (chunk) {\n      chunks.push(chunk);\n   });\n\n   res.on(\"end\", function (chunk) {\n      var body = Buffer.concat(chunks);\n      console.log(body.toString());\n   });\n\n   res.on(\"error\", function (error) {\n      console.error(error);\n   });\n});\n\nvar postData = JSON.stringify({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n});\n\nreq.write(postData);\n\nreq.end();"
+      - lang: NodeJS
+        source: "var request = require('request');\nvar options = {\n   'method': 'POST',\n   'url': '{{baseUrl}}/accounting/manual-accounting-policy/',\n   'headers': {\n      'Content-Type': 'application/json',\n      'Accept': 'application/json',\n      'Content-Length': ''\n   },\n   body: JSON.stringify({\n      \"record_date\": \"<date>\",\n      \"description\": \"<string>\",\n      \"accounting_records\": {\n         \"account_code\": \"<string>\",\n         \"debit\": \"<number>\",\n         \"credit\": \"<number>\"\n      }\n   })\n\n};\nrequest(options, function (error, response) {\n   if (error) throw new Error(error);\n   console.log(response.body);\n});\n"
+      - lang: NodeJS
+        source: "var unirest = require('unirest');\nvar req = unirest('POST', '{{baseUrl}}/accounting/manual-accounting-policy/')\n   .headers({\n      'Content-Type': 'application/json',\n      'Accept': 'application/json',\n      'Content-Length': ''\n   })\n   .send(JSON.stringify({\n      \"record_date\": \"<date>\",\n      \"description\": \"<string>\",\n      \"accounting_records\": {\n         \"account_code\": \"<string>\",\n         \"debit\": \"<number>\",\n         \"credit\": \"<number>\"\n      }\n   }))\n   .end(function (res) { \n      if (res.error) throw new Error(res.error); \n      console.log(res.raw_body);\n   });\n"
+      - lang: Objective-C
+        source: "#import <Foundation/Foundation.h>\n\ndispatch_semaphore_t sema = dispatch_semaphore_create(0);\n\nNSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@\"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/\"]\n   cachePolicy:NSURLRequestUseProtocolCachePolicy\n   timeoutInterval:10.0];\nNSDictionary *headers = @{\n   @\"Content-Type\": @\"application/json\",\n   @\"Accept\": @\"application/json\",\n   @\"Content-Length\": @\"\"\n};\n\n[request setAllHTTPHeaderFields:headers];\nNSData *postData = [[NSData alloc] initWithData:[@\"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\" dataUsingEncoding:NSUTF8StringEncoding]];\n[request setHTTPBody:postData];\n\n[request setHTTPMethod:@\"POST\"];\n\nNSURLSession *session = [NSURLSession sharedSession];\nNSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request\ncompletionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {\n   if (error) {\n      NSLog(@\"%@\", error);\n      dispatch_semaphore_signal(sema);\n   } else {\n      NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;\n      NSError *parseError = nil;\n      NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];\n      NSLog(@\"%@\",responseDictionary);\n      dispatch_semaphore_signal(sema);\n   }\n}];\n[dataTask resume];\ndispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);"
+      - lang: OcaML
+        source: "open Lwt\nopen Cohttp\nopen Cohttp_lwt_unix\n\nlet postData = ref \"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\";;\n\nlet reqBody = \n   let uri = Uri.of_string \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/\" in\n   let headers = Header.init ()\n      |> fun h -> Header.add h \"Content-Type\" \"application/json\"\n      |> fun h -> Header.add h \"Accept\" \"application/json\"\n      |> fun h -> Header.add h \"Content-Length\" \"\"\n   in\n   let body = Cohttp_lwt.Body.of_string !postData in\n\n   Client.call ~headers ~body `POST uri >>= fun (_resp, body) ->\n   body |> Cohttp_lwt.Body.to_string >|= fun body -> body\n\nlet () =\n   let respBody = Lwt_main.run reqBody in\n   print_endline (respBody)"
+      - lang: PHP
+        source: "<?php\nrequire_once 'HTTP/Request2.php';\n$request = new HTTP_Request2();\n$request->setUrl('{{baseUrl}}/accounting/manual-accounting-policy/');\n$request->setMethod(HTTP_Request2::METHOD_POST);\n$request->setConfig(array(\n   'follow_redirects' => TRUE\n));\n$request->setHeader(array(\n   'Content-Type' => 'application/json',\n   'Accept' => 'application/json',\n   'Content-Length' => ''\n));\n$request->setBody('{\\n  \"record_date\": \"<date>\",\\n  \"description\": \"<string>\",\\n  \"accounting_records\": {\\n    \"account_code\": \"<string>\",\\n    \"debit\": \"<number>\",\\n    \"credit\": \"<number>\"\\n  }\\n}');\ntry {\n   $response = $request->send();\n   if ($response->getStatus() == 200) {\n      echo $response->getBody();\n   }\n   else {\n      echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .\n      $response->getReasonPhrase();\n   }\n}\ncatch(HTTP_Request2_Exception $e) {\n   echo 'Error: ' . $e->getMessage();\n}"
+      - lang: PHP
+        source: "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n   CURLOPT_URL => '%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/',\n   CURLOPT_RETURNTRANSFER => true,\n   CURLOPT_ENCODING => '',\n   CURLOPT_MAXREDIRS => 10,\n   CURLOPT_TIMEOUT => 0,\n   CURLOPT_FOLLOWLOCATION => true,\n   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n   CURLOPT_CUSTOMREQUEST => 'POST',\n   CURLOPT_POSTFIELDS =>'{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}',\n   CURLOPT_HTTPHEADER => array(\n      'Content-Type: application/json',\n      'Accept: application/json',\n      'Content-Length: '\n   ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;\n"
+      - lang: PHP
+        source: "<?php\n$client = new http\\Client;\n$request = new http\\Client\\Request;\n$request->setRequestUrl('{{baseUrl}}/accounting/manual-accounting-policy/');\n$request->setRequestMethod('POST');\n$body = new http\\Message\\Body;\n$body->append('{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}');\n$request->setBody($body);\n$request->setOptions(array());\n$request->setHeaders(array(\n   'Content-Type' => 'application/json',\n   'Accept' => 'application/json',\n   'Content-Length' => ''\n));\n$client->enqueue($request)->send();\n$response = $client->getResponse();\necho $response->getBody();\n"
+      - lang: PowerShell
+        source: '$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+
+          $headers.Add("Content-Type", "application/json")
+
+          $headers.Add("Accept", "application/json")
+
+          $headers.Add("Content-Length", "")
+
+
+          $body = "{`n  `"record_date`": `"<date>`",`n  `"description`": `"<string>`",`n  `"accounting_records`": {`n    `"account_code`": `"<string>`",`n    `"debit`": `"<number>`",`n    `"credit`": `"<number>`"`n  }`n}"
+
+
+          $response = Invoke-RestMethod ''{{baseUrl}}/accounting/manual-accounting-policy/'' -Method ''POST'' -Headers $headers -Body $body
+
+          $response | ConvertTo-Json'
+      - lang: Python
+        source: "import requests\nimport json\n\nurl = \"{{baseUrl}}/accounting/manual-accounting-policy/\"\n\npayload = json.dumps({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n})\nheaders = {\n   'Content-Type': 'application/json',\n   'Accept': 'application/json',\n   'Content-Length': ''\n}\n\nresponse = requests.request(\"POST\", url, headers=headers, data=payload)\n\nprint(response.text)\n"
+      - lang: Python
+        source: "import http.client\nimport json\n\nconn = http.client.HTTPSConnection(\"{{baseUrl}}\")\npayload = json.dumps({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n})\nheaders = {\n   'Content-Type': 'application/json',\n   'Accept': 'application/json',\n   'Content-Length': ''\n}\nconn.request(\"POST\", \"/accounting/manual-accounting-policy/\", payload, headers)\nres = conn.getresponse()\ndata = res.read()\nprint(data.decode(\"utf-8\"))"
+      - lang: Ruby
+        source: "require \"uri\"\nrequire \"json\"\nrequire \"net/http\"\n\nurl = URI(\"{{baseUrl}}/accounting/manual-accounting-policy/\")\n\nhttp = Net::HTTP.new(url.host, url.port);\nrequest = Net::HTTP::Post.new(url)\nrequest[\"Content-Type\"] = \"application/json\"\nrequest[\"Accept\"] = \"application/json\"\nrequest[\"Content-Length\"] = \"\"\nrequest.body = JSON.dump({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n})\n\nresponse = http.request(request)\nputs response.read_body\n"
+      - lang: Shell
+        source: "printf '{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}'| http  --follow --timeout 3600 POST '{{baseUrl}}/accounting/manual-accounting-policy/' \\\n Content-Type:'application/json' \\\n Accept:'application/json' \\\n Content-Length:"
+      - lang: Shell
+        source: "wget --no-check-certificate --quiet \\\n   --method POST \\\n   --timeout=0 \\\n   --header 'Content-Type: application/json' \\\n   --header 'Accept: application/json' \\\n   --header 'Content-Length: ' \\\n   --body-data '{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}' \\\n    '{{baseUrl}}/accounting/manual-accounting-policy/'"
+      - lang: Swift
+        source: "import Foundation\n#if canImport(FoundationNetworking)\nimport FoundationNetworking\n#endif\n\nvar semaphore = DispatchSemaphore (value: 0)\n\nlet parameters = \"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\"\nlet postData = parameters.data(using: .utf8)\n\nvar request = URLRequest(url: URL(string: \"{{baseUrl}}/accounting/manual-accounting-policy/\")!,timeoutInterval: Double.infinity)\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Content-Type\")\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Accept\")\nrequest.addValue(\"\", forHTTPHeaderField: \"Content-Length\")\n\nrequest.httpMethod = \"POST\"\nrequest.httpBody = postData\n\nlet task = URLSession.shared.dataTask(with: request) { data, response, error in \n   guard let data = data else {\n      print(String(describing: error))\n      semaphore.signal()\n      return\n   }\n   print(String(data: data, encoding: .utf8)!)\n   semaphore.signal()\n}\n\ntask.resume()\nsemaphore.wait()\n"
+  /accounting/manual-accounting-policy/{policyid}/:
+    delete:
+      description: Elimina una póliza manual de los registros del sistema
+      parameters:
+      - description: Id de la póliza que se requiere eliminar
+        in: path
+        name: policyid
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManualPolicyResponse'
+          description: 0 indica error, 1 indica éxito. En la respuesta se incluye la información de la póliza eliminada
+      security:
+      - APIKey: []
+      summary: Elimina una póliza manual
+      tags:
+      - Pólizas manuales
+      x-codeSamples:
+      - lang: C
+        source: "CURL *curl;\nCURLcode res;\ncurl = curl_easy_init();\nif(curl) {\n   curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, \"DELETE\");\n   curl_easy_setopt(curl, CURLOPT_URL, \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\");\n   curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);\n   curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, \"https\");\n   struct curl_slist *headers = NULL;\n   headers = curl_slist_append(headers, \"Accept: application/json\");\n   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);\n   res = curl_easy_perform(curl);\n}\ncurl_easy_cleanup(curl);\n"
+      - lang: C#
+        source: 'var client = new RestClient("{{baseUrl}}/accounting/manual-accounting-policy/<long>/");
+
+          client.Timeout = -1;
+
+          var request = new RestRequest(Method.DELETE);
+
+          request.AddHeader("Accept", "application/json");
+
+          IRestResponse response = client.Execute(request);
+
+          Console.WriteLine(response.Content);'
+      - lang: Curl
+        source: 'curl --location -g --request DELETE ''{{baseUrl}}/accounting/manual-accounting-policy/<long>/'' \
+
+          --header ''Accept: application/json'''
+      - lang: Dart
+        source: "var headers = {\n   'Accept': 'application/json'\n};\nvar request = http.Request('DELETE', Uri.parse('{{baseUrl}}/accounting/manual-accounting-policy/<long>/'));\n\nrequest.headers.addAll(headers);\n\nhttp.StreamedResponse response = await request.send();\n\nif (response.statusCode == 200) {\n   print(await response.stream.bytesToString());\n}\nelse {\n   print(response.reasonPhrase);\n}\n"
+      - lang: Go
+        source: "package main\n\nimport (\n   \"fmt\"\n   \"net/http\"\n   \"io/ioutil\"\n)\n\nfunc main() {\n\n   url := \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\"\n   method := \"DELETE\"\n\n   client := &http.Client {\n   }\n   req, err := http.NewRequest(method, url, nil)\n\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   req.Header.Add(\"Accept\", \"application/json\")\n\n   res, err := client.Do(req)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   defer res.Body.Close()\n\n   body, err := ioutil.ReadAll(res.Body)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   fmt.Println(string(body))\n}"
+      - lang: Http
+        source: 'DELETE /accounting/manual-accounting-policy/<long>/ HTTP/1.1
+
+          Host: {{baseUrl}}
+
+          Accept: application/json'
+      - lang: Java
+        source: "OkHttpClient client = new OkHttpClient().newBuilder()\n   .build();\nMediaType mediaType = MediaType.parse(\"text/plain\");\nRequestBody body = RequestBody.create(mediaType, \"\");\nRequest request = new Request.Builder()\n   .url(\"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\")\n   .method(\"DELETE\", body)\n   .addHeader(\"Accept\", \"application/json\")\n   .build();\nResponse response = client.newCall(request).execute();"
+      - lang: Java
+        source: "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.delete(\"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\")\n   .header(\"Accept\", \"application/json\")\n   .asString();\n"
+      - lang: JavaScript
+        source: "var myHeaders = new Headers();\nmyHeaders.append(\"Accept\", \"application/json\");\n\nvar requestOptions = {\n   method: 'DELETE',\n   headers: myHeaders,\n   redirect: 'follow'\n};\n\nfetch(\"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\", requestOptions)\n   .then(response => response.text())\n   .then(result => console.log(result))\n   .catch(error => console.log('error', error));"
+      - lang: JavaScript
+        source: "\nvar xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function() {\n   if(this.readyState === 4) {\n      console.log(this.responseText);\n   }\n});\n\nxhr.open(\"DELETE\", \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\");\nxhr.setRequestHeader(\"Accept\", \"application/json\");\n\nxhr.send();"
+      - lang: JavaScript
+        source: "var settings = {\n   \"url\": \"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\",\n   \"method\": \"DELETE\",\n   \"timeout\": 0,\n   \"headers\": {\n      \"Accept\": \"application/json\"\n   },\n};\n\n$.ajax(settings).done(function (response) {\n   console.log(response);\n});"
+      - lang: NodeJS
+        source: "var axios = require('axios');\n\nvar config = {\n   method: 'delete',\n   url: '{{baseUrl}}/accounting/manual-accounting-policy/<long>/',\n   headers: { \n      'Accept': 'application/json'\n   }\n};\n\naxios(config)\n.then(function (response) {\n   console.log(JSON.stringify(response.data));\n})\n.catch(function (error) {\n   console.log(error);\n});\n"
+      - lang: NodeJS
+        source: "var https = require('follow-redirects').https;\nvar fs = require('fs');\n\nvar options = {\n   'method': 'DELETE',\n   'hostname': '{{baseUrl}}',\n   'path': '/accounting/manual-accounting-policy/<long>/',\n   'headers': {\n      'Accept': 'application/json'\n   },\n   'maxRedirects': 20\n};\n\nvar req = https.request(options, function (res) {\n   var chunks = [];\n\n   res.on(\"data\", function (chunk) {\n      chunks.push(chunk);\n   });\n\n   res.on(\"end\", function (chunk) {\n      var body = Buffer.concat(chunks);\n      console.log(body.toString());\n   });\n\n   res.on(\"error\", function (error) {\n      console.error(error);\n   });\n});\n\nreq.end();"
+      - lang: NodeJS
+        source: "var request = require('request');\nvar options = {\n   'method': 'DELETE',\n   'url': '{{baseUrl}}/accounting/manual-accounting-policy/<long>/',\n   'headers': {\n      'Accept': 'application/json'\n   }\n};\nrequest(options, function (error, response) {\n   if (error) throw new Error(error);\n   console.log(response.body);\n});\n"
+      - lang: NodeJS
+        source: "var unirest = require('unirest');\nvar req = unirest('DELETE', '{{baseUrl}}/accounting/manual-accounting-policy/<long>/')\n   .headers({\n      'Accept': 'application/json'\n   })\n   .end(function (res) { \n      if (res.error) throw new Error(res.error); \n      console.log(res.raw_body);\n   });\n"
+      - lang: Objective-C
+        source: "#import <Foundation/Foundation.h>\n\ndispatch_semaphore_t sema = dispatch_semaphore_create(0);\n\nNSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@\"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\"]\n   cachePolicy:NSURLRequestUseProtocolCachePolicy\n   timeoutInterval:10.0];\nNSDictionary *headers = @{\n   @\"Accept\": @\"application/json\"\n};\n\n[request setAllHTTPHeaderFields:headers];\n\n[request setHTTPMethod:@\"DELETE\"];\n\nNSURLSession *session = [NSURLSession sharedSession];\nNSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request\ncompletionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {\n   if (error) {\n      NSLog(@\"%@\", error);\n      dispatch_semaphore_signal(sema);\n   } else {\n      NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;\n      NSError *parseError = nil;\n      NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];\n      NSLog(@\"%@\",responseDictionary);\n      dispatch_semaphore_signal(sema);\n   }\n}];\n[dataTask resume];\ndispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);"
+      - lang: OcaML
+        source: "open Lwt\nopen Cohttp\nopen Cohttp_lwt_unix\n\nlet reqBody = \n   let uri = Uri.of_string \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\" in\n   let headers = Header.init ()\n      |> fun h -> Header.add h \"Accept\" \"application/json\"\n   in\n   Client.call ~headers `DELETE uri >>= fun (_resp, body) ->\n   body |> Cohttp_lwt.Body.to_string >|= fun body -> body\n\nlet () =\n   let respBody = Lwt_main.run reqBody in\n   print_endline (respBody)"
+      - lang: PHP
+        source: "<?php\nrequire_once 'HTTP/Request2.php';\n$request = new HTTP_Request2();\n$request->setUrl('{{baseUrl}}/accounting/manual-accounting-policy/<long>/');\n$request->setMethod(HTTP_Request2::METHOD_DELETE);\n$request->setConfig(array(\n   'follow_redirects' => TRUE\n));\n$request->setHeader(array(\n   'Accept' => 'application/json'\n));\ntry {\n   $response = $request->send();\n   if ($response->getStatus() == 200) {\n      echo $response->getBody();\n   }\n   else {\n      echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .\n      $response->getReasonPhrase();\n   }\n}\ncatch(HTTP_Request2_Exception $e) {\n   echo 'Error: ' . $e->getMessage();\n}"
+      - lang: PHP
+        source: "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n   CURLOPT_URL => '%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/',\n   CURLOPT_RETURNTRANSFER => true,\n   CURLOPT_ENCODING => '',\n   CURLOPT_MAXREDIRS => 10,\n   CURLOPT_TIMEOUT => 0,\n   CURLOPT_FOLLOWLOCATION => true,\n   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n   CURLOPT_CUSTOMREQUEST => 'DELETE',\n   CURLOPT_HTTPHEADER => array(\n      'Accept: application/json'\n   ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;\n"
+      - lang: PHP
+        source: "<?php\n$client = new http\\Client;\n$request = new http\\Client\\Request;\n$request->setRequestUrl('{{baseUrl}}/accounting/manual-accounting-policy/<long>/');\n$request->setRequestMethod('DELETE');\n$request->setOptions(array());\n$request->setHeaders(array(\n   'Accept' => 'application/json'\n));\n$client->enqueue($request)->send();\n$response = $client->getResponse();\necho $response->getBody();\n"
+      - lang: PowerShell
+        source: '$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+
+          $headers.Add("Accept", "application/json")
+
+
+          $response = Invoke-RestMethod ''{{baseUrl}}/accounting/manual-accounting-policy/<long>/'' -Method ''DELETE'' -Headers $headers
+
+          $response | ConvertTo-Json'
+      - lang: Python
+        source: "import requests\n\nurl = \"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\"\n\npayload={}\nheaders = {\n   'Accept': 'application/json'\n}\n\nresponse = requests.request(\"DELETE\", url, headers=headers, data=payload)\n\nprint(response.text)\n"
+      - lang: Python
+        source: "import http.client\n\nconn = http.client.HTTPSConnection(\"{{baseUrl}}\")\npayload = ''\nheaders = {\n   'Accept': 'application/json'\n}\nconn.request(\"DELETE\", \"/accounting/manual-accounting-policy/<long>/\", payload, headers)\nres = conn.getresponse()\ndata = res.read()\nprint(data.decode(\"utf-8\"))"
+      - lang: Ruby
+        source: 'require "uri"
+
+          require "net/http"
+
+
+          url = URI("{{baseUrl}}/accounting/manual-accounting-policy/<long>/")
+
+
+          http = Net::HTTP.new(url.host, url.port);
+
+          request = Net::HTTP::Delete.new(url)
+
+          request["Accept"] = "application/json"
+
+
+          response = http.request(request)
+
+          puts response.read_body
+
+          '
+      - lang: Shell
+        source: "http --follow --timeout 3600 DELETE '{{baseUrl}}/accounting/manual-accounting-policy/<long>/' \\\n Accept:'application/json'"
+      - lang: Shell
+        source: "wget --no-check-certificate --quiet \\\n   --method DELETE \\\n   --timeout=0 \\\n   --header 'Accept: application/json' \\\n    '{{baseUrl}}/accounting/manual-accounting-policy/<long>/'"
+      - lang: Swift
+        source: "import Foundation\n#if canImport(FoundationNetworking)\nimport FoundationNetworking\n#endif\n\nvar semaphore = DispatchSemaphore (value: 0)\n\nvar request = URLRequest(url: URL(string: \"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\")!,timeoutInterval: Double.infinity)\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Accept\")\n\nrequest.httpMethod = \"DELETE\"\n\nlet task = URLSession.shared.dataTask(with: request) { data, response, error in \n   guard let data = data else {\n      print(String(describing: error))\n      semaphore.signal()\n      return\n   }\n   print(String(data: data, encoding: .utf8)!)\n   semaphore.signal()\n}\n\ntask.resume()\nsemaphore.wait()\n"
+    get:
+      description: Obtiene la información de una póliza manual.
+      parameters:
+      - description: Id de la póliza que se requiere obtener
+        in: path
+        name: policyid
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManualPolicyResponse'
+          description: 0 indica error, 1 indica éxito.
+      security:
+      - APIKey: []
+      summary: Obtiene una póliza manual
+      tags:
+      - Pólizas manuales
+      x-codeSamples:
+      - lang: C
+        source: "CURL *curl;\nCURLcode res;\ncurl = curl_easy_init();\nif(curl) {\n   curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, \"GET\");\n   curl_easy_setopt(curl, CURLOPT_URL, \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\");\n   curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);\n   curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, \"https\");\n   struct curl_slist *headers = NULL;\n   headers = curl_slist_append(headers, \"Accept: application/json\");\n   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);\n   res = curl_easy_perform(curl);\n}\ncurl_easy_cleanup(curl);\n"
+      - lang: C#
+        source: 'var client = new RestClient("{{baseUrl}}/accounting/manual-accounting-policy/<long>/");
+
+          client.Timeout = -1;
+
+          var request = new RestRequest(Method.GET);
+
+          request.AddHeader("Accept", "application/json");
+
+          IRestResponse response = client.Execute(request);
+
+          Console.WriteLine(response.Content);'
+      - lang: Curl
+        source: 'curl --location -g --request GET ''{{baseUrl}}/accounting/manual-accounting-policy/<long>/'' \
+
+          --header ''Accept: application/json'''
+      - lang: Dart
+        source: "var headers = {\n   'Accept': 'application/json'\n};\nvar request = http.Request('GET', Uri.parse('{{baseUrl}}/accounting/manual-accounting-policy/<long>/'));\n\nrequest.headers.addAll(headers);\n\nhttp.StreamedResponse response = await request.send();\n\nif (response.statusCode == 200) {\n   print(await response.stream.bytesToString());\n}\nelse {\n   print(response.reasonPhrase);\n}\n"
+      - lang: Go
+        source: "package main\n\nimport (\n   \"fmt\"\n   \"net/http\"\n   \"io/ioutil\"\n)\n\nfunc main() {\n\n   url := \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\"\n   method := \"GET\"\n\n   client := &http.Client {\n   }\n   req, err := http.NewRequest(method, url, nil)\n\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   req.Header.Add(\"Accept\", \"application/json\")\n\n   res, err := client.Do(req)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   defer res.Body.Close()\n\n   body, err := ioutil.ReadAll(res.Body)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   fmt.Println(string(body))\n}"
+      - lang: Http
+        source: 'GET /accounting/manual-accounting-policy/<long>/ HTTP/1.1
+
+          Host: {{baseUrl}}
+
+          Accept: application/json'
+      - lang: Java
+        source: "OkHttpClient client = new OkHttpClient().newBuilder()\n   .build();\nRequest request = new Request.Builder()\n   .url(\"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\")\n   .method(\"GET\", null)\n   .addHeader(\"Accept\", \"application/json\")\n   .build();\nResponse response = client.newCall(request).execute();"
+      - lang: Java
+        source: "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.get(\"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\")\n   .header(\"Accept\", \"application/json\")\n   .asString();\n"
+      - lang: JavaScript
+        source: "var myHeaders = new Headers();\nmyHeaders.append(\"Accept\", \"application/json\");\n\nvar requestOptions = {\n   method: 'GET',\n   headers: myHeaders,\n   redirect: 'follow'\n};\n\nfetch(\"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\", requestOptions)\n   .then(response => response.text())\n   .then(result => console.log(result))\n   .catch(error => console.log('error', error));"
+      - lang: JavaScript
+        source: "\nvar xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function() {\n   if(this.readyState === 4) {\n      console.log(this.responseText);\n   }\n});\n\nxhr.open(\"GET\", \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\");\nxhr.setRequestHeader(\"Accept\", \"application/json\");\n\nxhr.send();"
+      - lang: JavaScript
+        source: "var settings = {\n   \"url\": \"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\",\n   \"method\": \"GET\",\n   \"timeout\": 0,\n   \"headers\": {\n      \"Accept\": \"application/json\"\n   },\n};\n\n$.ajax(settings).done(function (response) {\n   console.log(response);\n});"
+      - lang: NodeJS
+        source: "var axios = require('axios');\n\nvar config = {\n   method: 'get',\n   url: '{{baseUrl}}/accounting/manual-accounting-policy/<long>/',\n   headers: { \n      'Accept': 'application/json'\n   }\n};\n\naxios(config)\n.then(function (response) {\n   console.log(JSON.stringify(response.data));\n})\n.catch(function (error) {\n   console.log(error);\n});\n"
+      - lang: NodeJS
+        source: "var https = require('follow-redirects').https;\nvar fs = require('fs');\n\nvar options = {\n   'method': 'GET',\n   'hostname': '{{baseUrl}}',\n   'path': '/accounting/manual-accounting-policy/<long>/',\n   'headers': {\n      'Accept': 'application/json'\n   },\n   'maxRedirects': 20\n};\n\nvar req = https.request(options, function (res) {\n   var chunks = [];\n\n   res.on(\"data\", function (chunk) {\n      chunks.push(chunk);\n   });\n\n   res.on(\"end\", function (chunk) {\n      var body = Buffer.concat(chunks);\n      console.log(body.toString());\n   });\n\n   res.on(\"error\", function (error) {\n      console.error(error);\n   });\n});\n\nreq.end();"
+      - lang: NodeJS
+        source: "var request = require('request');\nvar options = {\n   'method': 'GET',\n   'url': '{{baseUrl}}/accounting/manual-accounting-policy/<long>/',\n   'headers': {\n      'Accept': 'application/json'\n   }\n};\nrequest(options, function (error, response) {\n   if (error) throw new Error(error);\n   console.log(response.body);\n});\n"
+      - lang: NodeJS
+        source: "var unirest = require('unirest');\nvar req = unirest('GET', '{{baseUrl}}/accounting/manual-accounting-policy/<long>/')\n   .headers({\n      'Accept': 'application/json'\n   })\n   .end(function (res) { \n      if (res.error) throw new Error(res.error); \n      console.log(res.raw_body);\n   });\n"
+      - lang: Objective-C
+        source: "#import <Foundation/Foundation.h>\n\ndispatch_semaphore_t sema = dispatch_semaphore_create(0);\n\nNSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@\"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\"]\n   cachePolicy:NSURLRequestUseProtocolCachePolicy\n   timeoutInterval:10.0];\nNSDictionary *headers = @{\n   @\"Accept\": @\"application/json\"\n};\n\n[request setAllHTTPHeaderFields:headers];\n\n[request setHTTPMethod:@\"GET\"];\n\nNSURLSession *session = [NSURLSession sharedSession];\nNSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request\ncompletionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {\n   if (error) {\n      NSLog(@\"%@\", error);\n      dispatch_semaphore_signal(sema);\n   } else {\n      NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;\n      NSError *parseError = nil;\n      NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];\n      NSLog(@\"%@\",responseDictionary);\n      dispatch_semaphore_signal(sema);\n   }\n}];\n[dataTask resume];\ndispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);"
+      - lang: OcaML
+        source: "open Lwt\nopen Cohttp\nopen Cohttp_lwt_unix\n\nlet reqBody = \n   let uri = Uri.of_string \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\" in\n   let headers = Header.init ()\n      |> fun h -> Header.add h \"Accept\" \"application/json\"\n   in\n   Client.call ~headers `GET uri >>= fun (_resp, body) ->\n   body |> Cohttp_lwt.Body.to_string >|= fun body -> body\n\nlet () =\n   let respBody = Lwt_main.run reqBody in\n   print_endline (respBody)"
+      - lang: PHP
+        source: "<?php\nrequire_once 'HTTP/Request2.php';\n$request = new HTTP_Request2();\n$request->setUrl('{{baseUrl}}/accounting/manual-accounting-policy/<long>/');\n$request->setMethod(HTTP_Request2::METHOD_GET);\n$request->setConfig(array(\n   'follow_redirects' => TRUE\n));\n$request->setHeader(array(\n   'Accept' => 'application/json'\n));\ntry {\n   $response = $request->send();\n   if ($response->getStatus() == 200) {\n      echo $response->getBody();\n   }\n   else {\n      echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .\n      $response->getReasonPhrase();\n   }\n}\ncatch(HTTP_Request2_Exception $e) {\n   echo 'Error: ' . $e->getMessage();\n}"
+      - lang: PHP
+        source: "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n   CURLOPT_URL => '%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/',\n   CURLOPT_RETURNTRANSFER => true,\n   CURLOPT_ENCODING => '',\n   CURLOPT_MAXREDIRS => 10,\n   CURLOPT_TIMEOUT => 0,\n   CURLOPT_FOLLOWLOCATION => true,\n   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n   CURLOPT_CUSTOMREQUEST => 'GET',\n   CURLOPT_HTTPHEADER => array(\n      'Accept: application/json'\n   ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;\n"
+      - lang: PHP
+        source: "<?php\n$client = new http\\Client;\n$request = new http\\Client\\Request;\n$request->setRequestUrl('{{baseUrl}}/accounting/manual-accounting-policy/<long>/');\n$request->setRequestMethod('GET');\n$request->setOptions(array());\n$request->setHeaders(array(\n   'Accept' => 'application/json'\n));\n$client->enqueue($request)->send();\n$response = $client->getResponse();\necho $response->getBody();\n"
+      - lang: PowerShell
+        source: '$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+
+          $headers.Add("Accept", "application/json")
+
+
+          $response = Invoke-RestMethod ''{{baseUrl}}/accounting/manual-accounting-policy/<long>/'' -Method ''GET'' -Headers $headers
+
+          $response | ConvertTo-Json'
+      - lang: Python
+        source: "import requests\n\nurl = \"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\"\n\npayload={}\nheaders = {\n   'Accept': 'application/json'\n}\n\nresponse = requests.request(\"GET\", url, headers=headers, data=payload)\n\nprint(response.text)\n"
+      - lang: Python
+        source: "import http.client\n\nconn = http.client.HTTPSConnection(\"{{baseUrl}}\")\npayload = ''\nheaders = {\n   'Accept': 'application/json'\n}\nconn.request(\"GET\", \"/accounting/manual-accounting-policy/<long>/\", payload, headers)\nres = conn.getresponse()\ndata = res.read()\nprint(data.decode(\"utf-8\"))"
+      - lang: Ruby
+        source: 'require "uri"
+
+          require "net/http"
+
+
+          url = URI("{{baseUrl}}/accounting/manual-accounting-policy/<long>/")
+
+
+          http = Net::HTTP.new(url.host, url.port);
+
+          request = Net::HTTP::Get.new(url)
+
+          request["Accept"] = "application/json"
+
+
+          response = http.request(request)
+
+          puts response.read_body
+
+          '
+      - lang: Shell
+        source: "http --follow --timeout 3600 GET '{{baseUrl}}/accounting/manual-accounting-policy/<long>/' \\\n Accept:'application/json'"
+      - lang: Shell
+        source: "wget --no-check-certificate --quiet \\\n   --method GET \\\n   --timeout=0 \\\n   --header 'Accept: application/json' \\\n    '{{baseUrl}}/accounting/manual-accounting-policy/<long>/'"
+      - lang: Swift
+        source: "import Foundation\n#if canImport(FoundationNetworking)\nimport FoundationNetworking\n#endif\n\nvar semaphore = DispatchSemaphore (value: 0)\n\nvar request = URLRequest(url: URL(string: \"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\")!,timeoutInterval: Double.infinity)\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Accept\")\n\nrequest.httpMethod = \"GET\"\n\nlet task = URLSession.shared.dataTask(with: request) { data, response, error in \n   guard let data = data else {\n      print(String(describing: error))\n      semaphore.signal()\n      return\n   }\n   print(String(data: data, encoding: .utf8)!)\n   semaphore.signal()\n}\n\ntask.resume()\nsemaphore.wait()\n"
+    patch:
+      description: Endpoint para editar pólizas manuales. Es necesario volver a enviar toda la información de la póliza.
+      parameters:
+      - description: Id de la póliza que se requiere editar
+        in: path
+        name: policyid
+        required: true
+        schema:
+          format: int64
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManualPolicy'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManualPolicyResponse'
+          description: 0 indica error, 1 indica éxito
+      security:
+      - APIKey: []
+      summary: Edita una póliza manual
+      tags:
+      - Pólizas manuales
+      x-codeSamples:
+      - lang: C
+        source: "CURL *curl;\nCURLcode res;\ncurl = curl_easy_init();\nif(curl) {\n   curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, \"PATCH\");\n   curl_easy_setopt(curl, CURLOPT_URL, \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\");\n   curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);\n   curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, \"https\");\n   struct curl_slist *headers = NULL;\n   headers = curl_slist_append(headers, \"Content-Type: application/json\");\n   headers = curl_slist_append(headers, \"Accept: application/json\");\n   headers = curl_slist_append(headers, \"Content-Length: \");\n   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);\n   const char *data = \"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\";\n   curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data);\n   res = curl_easy_perform(curl);\n}\ncurl_easy_cleanup(curl);\n"
+      - lang: C#
+        source: 'var client = new RestClient("{{baseUrl}}/accounting/manual-accounting-policy/<long>/");
+
+          client.Timeout = -1;
+
+          var request = new RestRequest(Method.PATCH);
+
+          request.AddHeader("Content-Type", "application/json");
+
+          request.AddHeader("Accept", "application/json");
+
+          var body = @"{" + "\n" +
+
+          @"  ""record_date"": ""<date>""," + "\n" +
+
+          @"  ""description"": ""<string>""," + "\n" +
+
+          @"  ""accounting_records"": {" + "\n" +
+
+          @"    ""account_code"": ""<string>""," + "\n" +
+
+          @"    ""debit"": ""<number>""," + "\n" +
+
+          @"    ""credit"": ""<number>""" + "\n" +
+
+          @"  }" + "\n" +
+
+          @"}";
+
+          request.AddParameter("application/json", body,  ParameterType.RequestBody);
+
+          IRestResponse response = client.Execute(request);
+
+          Console.WriteLine(response.Content);'
+      - lang: Curl
+        source: "curl --location -g --request PATCH '{{baseUrl}}/accounting/manual-accounting-policy/<long>/' \\\n--header 'Content-Type: application/json' \\\n--header 'Accept: application/json' \\\n--data-raw '{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}'"
+      - lang: Dart
+        source: "var headers = {\n   'Content-Type': 'application/json',\n   'Accept': 'application/json'\n};\nvar request = http.Request('PATCH', Uri.parse('{{baseUrl}}/accounting/manual-accounting-policy/<long>/'));\nrequest.body = json.encode({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n});\nrequest.headers.addAll(headers);\n\nhttp.StreamedResponse response = await request.send();\n\nif (response.statusCode == 200) {\n   print(await response.stream.bytesToString());\n}\nelse {\n   print(response.reasonPhrase);\n}\n"
+      - lang: Go
+        source: "package main\n\nimport (\n   \"fmt\"\n   \"strings\"\n   \"net/http\"\n   \"io/ioutil\"\n)\n\nfunc main() {\n\n   url := \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\"\n   method := \"PATCH\"\n\n   payload := strings.NewReader(`{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}`)\n\n   client := &http.Client {\n   }\n   req, err := http.NewRequest(method, url, payload)\n\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   req.Header.Add(\"Content-Type\", \"application/json\")\n   req.Header.Add(\"Accept\", \"application/json\")\n\n   res, err := client.Do(req)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   defer res.Body.Close()\n\n   body, err := ioutil.ReadAll(res.Body)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   fmt.Println(string(body))\n}"
+      - lang: Http
+        source: "PATCH /accounting/manual-accounting-policy/<long>/ HTTP/1.1\nHost: {{baseUrl}}\nContent-Type: application/json\nAccept: application/json\nContent-Length: 171\n\n{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}"
+      - lang: Java
+        source: "OkHttpClient client = new OkHttpClient().newBuilder()\n   .build();\nMediaType mediaType = MediaType.parse(\"application/json\");\nRequestBody body = RequestBody.create(mediaType, \"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\");\nRequest request = new Request.Builder()\n   .url(\"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\")\n   .method(\"PATCH\", body)\n   .addHeader(\"Content-Type\", \"application/json\")\n   .addHeader(\"Accept\", \"application/json\")\n   .addHeader(\"Content-Length\", \"\")\n   .build();\nResponse response = client.newCall(request).execute();"
+      - lang: Java
+        source: "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.patch(\"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\")\n   .header(\"Content-Type\", \"application/json\")\n   .header(\"Accept\", \"application/json\")\n   .header(\"Content-Length\", \"\")\n   .body(\"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\")\n   .asString();\n"
+      - lang: JavaScript
+        source: "var myHeaders = new Headers();\nmyHeaders.append(\"Content-Type\", \"application/json\");\nmyHeaders.append(\"Accept\", \"application/json\");\nmyHeaders.append(\"Content-Length\", \"\");\n\nvar raw = JSON.stringify({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n});\n\nvar requestOptions = {\n   method: 'PATCH',\n   headers: myHeaders,\n   body: raw,\n   redirect: 'follow'\n};\n\nfetch(\"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\", requestOptions)\n   .then(response => response.text())\n   .then(result => console.log(result))\n   .catch(error => console.log('error', error));"
+      - lang: JavaScript
+        source: "var data = JSON.stringify({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n});\n\nvar xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function() {\n   if(this.readyState === 4) {\n      console.log(this.responseText);\n   }\n});\n\nxhr.open(\"PATCH\", \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\");\nxhr.setRequestHeader(\"Content-Type\", \"application/json\");\nxhr.setRequestHeader(\"Accept\", \"application/json\");\nxhr.setRequestHeader(\"Content-Length\", \"\");\n\nxhr.send(data);"
+      - lang: JavaScript
+        source: "var settings = {\n   \"url\": \"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\",\n   \"method\": \"PATCH\",\n   \"timeout\": 0,\n   \"headers\": {\n      \"Content-Type\": \"application/json\",\n      \"Accept\": \"application/json\",\n      \"Content-Length\": \"\"\n   },\n   \"data\": JSON.stringify({\n      \"record_date\": \"<date>\",\n      \"description\": \"<string>\",\n      \"accounting_records\": {\n         \"account_code\": \"<string>\",\n         \"debit\": \"<number>\",\n         \"credit\": \"<number>\"\n      }\n   }),\n};\n\n$.ajax(settings).done(function (response) {\n   console.log(response);\n});"
+      - lang: NodeJS
+        source: "var axios = require('axios');\nvar data = JSON.stringify({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n});\n\nvar config = {\n   method: 'patch',\n   url: '{{baseUrl}}/accounting/manual-accounting-policy/<long>/',\n   headers: { \n      'Content-Type': 'application/json', \n      'Accept': 'application/json', \n      'Content-Length': ''\n   },\n   data : data\n};\n\naxios(config)\n.then(function (response) {\n   console.log(JSON.stringify(response.data));\n})\n.catch(function (error) {\n   console.log(error);\n});\n"
+      - lang: NodeJS
+        source: "var https = require('follow-redirects').https;\nvar fs = require('fs');\n\nvar options = {\n   'method': 'PATCH',\n   'hostname': '{{baseUrl}}',\n   'path': '/accounting/manual-accounting-policy/<long>/',\n   'headers': {\n      'Content-Type': 'application/json',\n      'Accept': 'application/json',\n      'Content-Length': ''\n   },\n   'maxRedirects': 20\n};\n\nvar req = https.request(options, function (res) {\n   var chunks = [];\n\n   res.on(\"data\", function (chunk) {\n      chunks.push(chunk);\n   });\n\n   res.on(\"end\", function (chunk) {\n      var body = Buffer.concat(chunks);\n      console.log(body.toString());\n   });\n\n   res.on(\"error\", function (error) {\n      console.error(error);\n   });\n});\n\nvar postData = JSON.stringify({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n});\n\nreq.write(postData);\n\nreq.end();"
+      - lang: NodeJS
+        source: "var request = require('request');\nvar options = {\n   'method': 'PATCH',\n   'url': '{{baseUrl}}/accounting/manual-accounting-policy/<long>/',\n   'headers': {\n      'Content-Type': 'application/json',\n      'Accept': 'application/json',\n      'Content-Length': ''\n   },\n   body: JSON.stringify({\n      \"record_date\": \"<date>\",\n      \"description\": \"<string>\",\n      \"accounting_records\": {\n         \"account_code\": \"<string>\",\n         \"debit\": \"<number>\",\n         \"credit\": \"<number>\"\n      }\n   })\n\n};\nrequest(options, function (error, response) {\n   if (error) throw new Error(error);\n   console.log(response.body);\n});\n"
+      - lang: NodeJS
+        source: "var unirest = require('unirest');\nvar req = unirest('PATCH', '{{baseUrl}}/accounting/manual-accounting-policy/<long>/')\n   .headers({\n      'Content-Type': 'application/json',\n      'Accept': 'application/json',\n      'Content-Length': ''\n   })\n   .send(JSON.stringify({\n      \"record_date\": \"<date>\",\n      \"description\": \"<string>\",\n      \"accounting_records\": {\n         \"account_code\": \"<string>\",\n         \"debit\": \"<number>\",\n         \"credit\": \"<number>\"\n      }\n   }))\n   .end(function (res) { \n      if (res.error) throw new Error(res.error); \n      console.log(res.raw_body);\n   });\n"
+      - lang: Objective-C
+        source: "#import <Foundation/Foundation.h>\n\ndispatch_semaphore_t sema = dispatch_semaphore_create(0);\n\nNSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@\"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\"]\n   cachePolicy:NSURLRequestUseProtocolCachePolicy\n   timeoutInterval:10.0];\nNSDictionary *headers = @{\n   @\"Content-Type\": @\"application/json\",\n   @\"Accept\": @\"application/json\",\n   @\"Content-Length\": @\"\"\n};\n\n[request setAllHTTPHeaderFields:headers];\nNSData *postData = [[NSData alloc] initWithData:[@\"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\" dataUsingEncoding:NSUTF8StringEncoding]];\n[request setHTTPBody:postData];\n\n[request setHTTPMethod:@\"PATCH\"];\n\nNSURLSession *session = [NSURLSession sharedSession];\nNSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request\ncompletionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {\n   if (error) {\n      NSLog(@\"%@\", error);\n      dispatch_semaphore_signal(sema);\n   } else {\n      NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;\n      NSError *parseError = nil;\n      NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];\n      NSLog(@\"%@\",responseDictionary);\n      dispatch_semaphore_signal(sema);\n   }\n}];\n[dataTask resume];\ndispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);"
+      - lang: OcaML
+        source: "open Lwt\nopen Cohttp\nopen Cohttp_lwt_unix\n\nlet postData = ref \"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\";;\n\nlet reqBody = \n   let uri = Uri.of_string \"%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/\" in\n   let headers = Header.init ()\n      |> fun h -> Header.add h \"Content-Type\" \"application/json\"\n      |> fun h -> Header.add h \"Accept\" \"application/json\"\n      |> fun h -> Header.add h \"Content-Length\" \"\"\n   in\n   let body = Cohttp_lwt.Body.of_string !postData in\n\n   Client.call ~headers ~body `PATCH uri >>= fun (_resp, body) ->\n   body |> Cohttp_lwt.Body.to_string >|= fun body -> body\n\nlet () =\n   let respBody = Lwt_main.run reqBody in\n   print_endline (respBody)"
+      - lang: PHP
+        source: "<?php\nrequire_once 'HTTP/Request2.php';\n$request = new HTTP_Request2();\n$request->setUrl('{{baseUrl}}/accounting/manual-accounting-policy/<long>/');\n$request->setMethod('PATCH');\n$request->setConfig(array(\n   'follow_redirects' => TRUE\n));\n$request->setHeader(array(\n   'Content-Type' => 'application/json',\n   'Accept' => 'application/json',\n   'Content-Length' => ''\n));\n$request->setBody('{\\n  \"record_date\": \"<date>\",\\n  \"description\": \"<string>\",\\n  \"accounting_records\": {\\n    \"account_code\": \"<string>\",\\n    \"debit\": \"<number>\",\\n    \"credit\": \"<number>\"\\n  }\\n}');\ntry {\n   $response = $request->send();\n   if ($response->getStatus() == 200) {\n      echo $response->getBody();\n   }\n   else {\n      echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .\n      $response->getReasonPhrase();\n   }\n}\ncatch(HTTP_Request2_Exception $e) {\n   echo 'Error: ' . $e->getMessage();\n}"
+      - lang: PHP
+        source: "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n   CURLOPT_URL => '%7B%7BbaseUrl%7D%7D/accounting/manual-accounting-policy/%3Clong%3E/',\n   CURLOPT_RETURNTRANSFER => true,\n   CURLOPT_ENCODING => '',\n   CURLOPT_MAXREDIRS => 10,\n   CURLOPT_TIMEOUT => 0,\n   CURLOPT_FOLLOWLOCATION => true,\n   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n   CURLOPT_CUSTOMREQUEST => 'PATCH',\n   CURLOPT_POSTFIELDS =>'{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}',\n   CURLOPT_HTTPHEADER => array(\n      'Content-Type: application/json',\n      'Accept: application/json',\n      'Content-Length: '\n   ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;\n"
+      - lang: PHP
+        source: "<?php\n$client = new http\\Client;\n$request = new http\\Client\\Request;\n$request->setRequestUrl('{{baseUrl}}/accounting/manual-accounting-policy/<long>/');\n$request->setRequestMethod('PATCH');\n$body = new http\\Message\\Body;\n$body->append('{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}');\n$request->setBody($body);\n$request->setOptions(array());\n$request->setHeaders(array(\n   'Content-Type' => 'application/json',\n   'Accept' => 'application/json',\n   'Content-Length' => ''\n));\n$client->enqueue($request)->send();\n$response = $client->getResponse();\necho $response->getBody();\n"
+      - lang: PowerShell
+        source: '$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+
+          $headers.Add("Content-Type", "application/json")
+
+          $headers.Add("Accept", "application/json")
+
+          $headers.Add("Content-Length", "")
+
+
+          $body = "{`n  `"record_date`": `"<date>`",`n  `"description`": `"<string>`",`n  `"accounting_records`": {`n    `"account_code`": `"<string>`",`n    `"debit`": `"<number>`",`n    `"credit`": `"<number>`"`n  }`n}"
+
+
+          $response = Invoke-RestMethod ''{{baseUrl}}/accounting/manual-accounting-policy/<long>/'' -Method ''PATCH'' -Headers $headers -Body $body
+
+          $response | ConvertTo-Json'
+      - lang: Python
+        source: "import requests\nimport json\n\nurl = \"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\"\n\npayload = json.dumps({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n})\nheaders = {\n   'Content-Type': 'application/json',\n   'Accept': 'application/json',\n   'Content-Length': ''\n}\n\nresponse = requests.request(\"PATCH\", url, headers=headers, data=payload)\n\nprint(response.text)\n"
+      - lang: Python
+        source: "import http.client\nimport json\n\nconn = http.client.HTTPSConnection(\"{{baseUrl}}\")\npayload = json.dumps({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n})\nheaders = {\n   'Content-Type': 'application/json',\n   'Accept': 'application/json',\n   'Content-Length': ''\n}\nconn.request(\"PATCH\", \"/accounting/manual-accounting-policy/<long>/\", payload, headers)\nres = conn.getresponse()\ndata = res.read()\nprint(data.decode(\"utf-8\"))"
+      - lang: Ruby
+        source: "require \"uri\"\nrequire \"json\"\nrequire \"net/http\"\n\nurl = URI(\"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\")\n\nhttp = Net::HTTP.new(url.host, url.port);\nrequest = Net::HTTP::Patch.new(url)\nrequest[\"Content-Type\"] = \"application/json\"\nrequest[\"Accept\"] = \"application/json\"\nrequest[\"Content-Length\"] = \"\"\nrequest.body = JSON.dump({\n   \"record_date\": \"<date>\",\n   \"description\": \"<string>\",\n   \"accounting_records\": {\n      \"account_code\": \"<string>\",\n      \"debit\": \"<number>\",\n      \"credit\": \"<number>\"\n   }\n})\n\nresponse = http.request(request)\nputs response.read_body\n"
+      - lang: Shell
+        source: "printf '{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}'| http  --follow --timeout 3600 PATCH '{{baseUrl}}/accounting/manual-accounting-policy/<long>/' \\\n Content-Type:'application/json' \\\n Accept:'application/json' \\\n Content-Length:"
+      - lang: Shell
+        source: "wget --no-check-certificate --quiet \\\n   --method PATCH \\\n   --timeout=0 \\\n   --header 'Content-Type: application/json' \\\n   --header 'Accept: application/json' \\\n   --header 'Content-Length: ' \\\n   --body-data '{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}' \\\n    '{{baseUrl}}/accounting/manual-accounting-policy/<long>/'"
+      - lang: Swift
+        source: "import Foundation\n#if canImport(FoundationNetworking)\nimport FoundationNetworking\n#endif\n\nvar semaphore = DispatchSemaphore (value: 0)\n\nlet parameters = \"{\\n  \\\"record_date\\\": \\\"<date>\\\",\\n  \\\"description\\\": \\\"<string>\\\",\\n  \\\"accounting_records\\\": {\\n    \\\"account_code\\\": \\\"<string>\\\",\\n    \\\"debit\\\": \\\"<number>\\\",\\n    \\\"credit\\\": \\\"<number>\\\"\\n  }\\n}\"\nlet postData = parameters.data(using: .utf8)\n\nvar request = URLRequest(url: URL(string: \"{{baseUrl}}/accounting/manual-accounting-policy/<long>/\")!,timeoutInterval: Double.infinity)\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Content-Type\")\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Accept\")\nrequest.addValue(\"\", forHTTPHeaderField: \"Content-Length\")\n\nrequest.httpMethod = \"PATCH\"\nrequest.httpBody = postData\n\nlet task = URLSession.shared.dataTask(with: request) { data, response, error in \n   guard let data = data else {\n      print(String(describing: error))\n      semaphore.signal()\n      return\n   }\n   print(String(data: data, encoding: .utf8)!)\n   semaphore.signal()\n}\n\ntask.resume()\nsemaphore.wait()\n"
+components:
+  schemas:
+    ManualPolicyResponse:
+      properties:
+        message:
+          description: Mensaje de éxito o de error que acompaña al status
+          type: string
+        policy_data:
+          description: Contiene los registros de la póliza como se guardaron en Contalink
+          properties:
+            accounting_records:
+              description: Registros contables que componen la póliza
+              properties:
+                account_code:
+                  description: Código de la cuenta contable como está registrado en el catálogo contable de Contalink.
+                  type: string
+                credit:
+                  description: Haber de la registro contable
+                  type: number
+                debit:
+                  description: Debe de la registro contable
+                  type: number
+              type: object
+            description:
+              description: Descripción de la transacción
+              type: string
+            record_date:
+              description: Fecha en la que la póliza afectará contablemente
+              format: date
+              type: string
+          type: object
+        status:
+          description: Indica el status de la llamada, 1.- Éxito, 0.- Error
+          type: number
+      type: object
+    ManualPolicy:
+      properties:
+        accounting_records:
+          description: Registros contables que componen la póliza
+          properties:
+            account_code:
+              description: Código de la cuenta contable como está registrado en el catálogo contable de Contalink.
+              type: string
+            credit:
+              description: Haber de la registro contable
+              type: number
+            debit:
+              description: Debe de la registro contable
+              type: number
+          required:
+          - account_code
+          - debit
+          - credit
+          type: object
+        description:
+          description: Descripción de la transacción
+          type: string
+        record_date:
+          description: Fecha en la que la póliza afectará contablemente
+          format: date
+          type: string
+      required:
+      - record_date
+      - description
+      - accounting_records
+      type: object
+  securitySchemes:
+    APIKey:
+      description: Llave de API relacionada al usuario que hace la petición.
+      in: header
+      name: Authorization
+      type: apiKey
+x-tagGroups:
+- name: Conciliación
+  tags:
+  - Conciliación
+- name: Tesorería
+  tags:
+  - Movimientos bancarios
+- name: Documentos fiscales
+  tags:
+  - Listado de documentos fiscales
+  - Cargar un documento fiscal
+  - Status de documentos fiscales
+- name: Contabilidad
+  tags:
+  - Balanza de comprobación
+  - Pólizas manuales
+  - Saldo de una cuenta

@@ -1,0 +1,422 @@
+openapi: 3.0.0
+info:
+  description: '# Introducción
+
+    Documentación del API de Contalink
+
+
+    # Autenticación
+
+
+    El método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.
+
+
+    <SecurityDefinitions />
+
+    '
+  title: API Contalink Balanza de comprobación Listado de documentos fiscales API
+  version: 1.0.4
+  x-logo:
+    altText: Contalink
+    url: http://apidocs.contalink.com/logocontalinknew.svg
+servers:
+- description: prod
+  url: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+tags:
+- description: Obtiene un listado de los documentos fiscales que correspondan a los filtros enviados
+  name: Listado de documentos fiscales
+paths:
+  /invoices/list/:
+    get:
+      description: Obtiene un listado de documentos fiscales.
+      parameters:
+      - description: Indica si se quieren obtener los documentos fiscales emitidos o recibidos
+        in: query
+        name: transaction_type
+        required: true
+        schema:
+          enum:
+          - E
+          - R
+          type: string
+      - description: Tipo de documento fiscal que se quiere obtener. (Comprobantes de nómina, Facturas, Notas de crédito, Complementos de pago)
+        in: query
+        name: document_type
+        required: true
+        schema:
+          enum:
+          - Nomina
+          - Ingreso
+          - Egreso
+          - Pago
+          type: string
+      - description: RFC de la empresa para la cual se quieren obtener los documentos fiscales
+        in: query
+        name: rfc
+        required: true
+        schema:
+          type: string
+      - description: Fecha inicial para obtener los documentos (YYYY-MM-DD)
+        in: query
+        name: start_date
+        required: true
+        schema:
+          format: date
+          type: string
+      - description: Fecha final para obtener los documentos (YYYY-MM-DD)
+        in: query
+        name: end_date
+        required: true
+        schema:
+          format: date
+          type: string
+      - description: Parámetro opcional que indica el número de página a obtener, si no se especifica, su valor será 0
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int32
+          type: number
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceList'
+          description: 0 indica error, 1 indica éxito.
+      security:
+      - APIKey: []
+      summary: Obtiene un listado de documentos fiscales
+      tags:
+      - Listado de documentos fiscales
+      x-codeSamples:
+      - lang: C
+        source: "CURL *curl;\nCURLcode res;\ncurl = curl_easy_init();\nif(curl) {\n   curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, \"GET\");\n   curl_easy_setopt(curl, CURLOPT_URL, \"%7B%7BbaseUrl%7D%7D/invoices/list/?transaction_type=%3Cstring%3E&document_type=%3Cstring%3E&rfc=%3Cstring%3E&start_date=%3Cdate%3E&end_date=%3Cdate%3E&page=%3Cint32%3E\");\n   curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);\n   curl_easy_setopt(curl, CURLOPT_DEFAULT_PROTOCOL, \"https\");\n   struct curl_slist *headers = NULL;\n   headers = curl_slist_append(headers, \"Accept: application/json\");\n   curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);\n   res = curl_easy_perform(curl);\n}\ncurl_easy_cleanup(curl);\n"
+      - lang: C#
+        source: 'var client = new RestClient("{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>");
+
+          client.Timeout = -1;
+
+          var request = new RestRequest(Method.GET);
+
+          request.AddHeader("Accept", "application/json");
+
+          IRestResponse response = client.Execute(request);
+
+          Console.WriteLine(response.Content);'
+      - lang: Curl
+        source: 'curl --location -g --request GET ''{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>'' \
+
+          --header ''Accept: application/json'''
+      - lang: Dart
+        source: "var headers = {\n   'Accept': 'application/json'\n};\nvar request = http.Request('GET', Uri.parse('{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>'));\n\nrequest.headers.addAll(headers);\n\nhttp.StreamedResponse response = await request.send();\n\nif (response.statusCode == 200) {\n   print(await response.stream.bytesToString());\n}\nelse {\n   print(response.reasonPhrase);\n}\n"
+      - lang: Go
+        source: "package main\n\nimport (\n   \"fmt\"\n   \"net/http\"\n   \"io/ioutil\"\n)\n\nfunc main() {\n\n   url := \"%7B%7BbaseUrl%7D%7D/invoices/list/?transaction_type=%3Cstring%3E&document_type=%3Cstring%3E&rfc=%3Cstring%3E&start_date=%3Cdate%3E&end_date=%3Cdate%3E&page=%3Cint32%3E\"\n   method := \"GET\"\n\n   client := &http.Client {\n   }\n   req, err := http.NewRequest(method, url, nil)\n\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   req.Header.Add(\"Accept\", \"application/json\")\n\n   res, err := client.Do(req)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   defer res.Body.Close()\n\n   body, err := ioutil.ReadAll(res.Body)\n   if err != nil {\n      fmt.Println(err)\n      return\n   }\n   fmt.Println(string(body))\n}"
+      - lang: Http
+        source: 'GET /invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32> HTTP/1.1
+
+          Host: {{baseUrl}}
+
+          Accept: application/json'
+      - lang: Java
+        source: "OkHttpClient client = new OkHttpClient().newBuilder()\n   .build();\nRequest request = new Request.Builder()\n   .url(\"{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>\")\n   .method(\"GET\", null)\n   .addHeader(\"Accept\", \"application/json\")\n   .build();\nResponse response = client.newCall(request).execute();"
+      - lang: Java
+        source: "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.get(\"{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>\")\n   .header(\"Accept\", \"application/json\")\n   .asString();\n"
+      - lang: JavaScript
+        source: "var myHeaders = new Headers();\nmyHeaders.append(\"Accept\", \"application/json\");\n\nvar requestOptions = {\n   method: 'GET',\n   headers: myHeaders,\n   redirect: 'follow'\n};\n\nfetch(\"{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>\", requestOptions)\n   .then(response => response.text())\n   .then(result => console.log(result))\n   .catch(error => console.log('error', error));"
+      - lang: JavaScript
+        source: "\nvar xhr = new XMLHttpRequest();\nxhr.withCredentials = true;\n\nxhr.addEventListener(\"readystatechange\", function() {\n   if(this.readyState === 4) {\n      console.log(this.responseText);\n   }\n});\n\nxhr.open(\"GET\", \"%7B%7BbaseUrl%7D%7D/invoices/list/?transaction_type=%3Cstring%3E&document_type=%3Cstring%3E&rfc=%3Cstring%3E&start_date=%3Cdate%3E&end_date=%3Cdate%3E&page=%3Cint32%3E\");\nxhr.setRequestHeader(\"Accept\", \"application/json\");\n\nxhr.send();"
+      - lang: JavaScript
+        source: "var settings = {\n   \"url\": \"{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>\",\n   \"method\": \"GET\",\n   \"timeout\": 0,\n   \"headers\": {\n      \"Accept\": \"application/json\"\n   },\n};\n\n$.ajax(settings).done(function (response) {\n   console.log(response);\n});"
+      - lang: NodeJS
+        source: "var axios = require('axios');\n\nvar config = {\n   method: 'get',\n   url: '{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>',\n   headers: { \n      'Accept': 'application/json'\n   }\n};\n\naxios(config)\n.then(function (response) {\n   console.log(JSON.stringify(response.data));\n})\n.catch(function (error) {\n   console.log(error);\n});\n"
+      - lang: NodeJS
+        source: "var https = require('follow-redirects').https;\nvar fs = require('fs');\n\nvar options = {\n   'method': 'GET',\n   'hostname': '{{baseUrl}}',\n   'path': '/invoices/list/?transaction_type=%3Cstring%3E&document_type=%3Cstring%3E&rfc=%3Cstring%3E&start_date=%3Cdate%3E&end_date=%3Cdate%3E&page=%3Cint32%3E',\n   'headers': {\n      'Accept': 'application/json'\n   },\n   'maxRedirects': 20\n};\n\nvar req = https.request(options, function (res) {\n   var chunks = [];\n\n   res.on(\"data\", function (chunk) {\n      chunks.push(chunk);\n   });\n\n   res.on(\"end\", function (chunk) {\n      var body = Buffer.concat(chunks);\n      console.log(body.toString());\n   });\n\n   res.on(\"error\", function (error) {\n      console.error(error);\n   });\n});\n\nreq.end();"
+      - lang: NodeJS
+        source: "var request = require('request');\nvar options = {\n   'method': 'GET',\n   'url': '{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>',\n   'headers': {\n      'Accept': 'application/json'\n   }\n};\nrequest(options, function (error, response) {\n   if (error) throw new Error(error);\n   console.log(response.body);\n});\n"
+      - lang: NodeJS
+        source: "var unirest = require('unirest');\nvar req = unirest('GET', '{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>')\n   .headers({\n      'Accept': 'application/json'\n   })\n   .end(function (res) { \n      if (res.error) throw new Error(res.error); \n      console.log(res.raw_body);\n   });\n"
+      - lang: Objective-C
+        source: "#import <Foundation/Foundation.h>\n\ndispatch_semaphore_t sema = dispatch_semaphore_create(0);\n\nNSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@\"%7B%7BbaseUrl%7D%7D/invoices/list/?transaction_type=%3Cstring%3E&document_type=%3Cstring%3E&rfc=%3Cstring%3E&start_date=%3Cdate%3E&end_date=%3Cdate%3E&page=%3Cint32%3E\"]\n   cachePolicy:NSURLRequestUseProtocolCachePolicy\n   timeoutInterval:10.0];\nNSDictionary *headers = @{\n   @\"Accept\": @\"application/json\"\n};\n\n[request setAllHTTPHeaderFields:headers];\n\n[request setHTTPMethod:@\"GET\"];\n\nNSURLSession *session = [NSURLSession sharedSession];\nNSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request\ncompletionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {\n   if (error) {\n      NSLog(@\"%@\", error);\n      dispatch_semaphore_signal(sema);\n   } else {\n      NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;\n      NSError *parseError = nil;\n      NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];\n      NSLog(@\"%@\",responseDictionary);\n      dispatch_semaphore_signal(sema);\n   }\n}];\n[dataTask resume];\ndispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);"
+      - lang: OcaML
+        source: "open Lwt\nopen Cohttp\nopen Cohttp_lwt_unix\n\nlet reqBody = \n   let uri = Uri.of_string \"%7B%7BbaseUrl%7D%7D/invoices/list/?transaction_type=%3Cstring%3E&document_type=%3Cstring%3E&rfc=%3Cstring%3E&start_date=%3Cdate%3E&end_date=%3Cdate%3E&page=%3Cint32%3E\" in\n   let headers = Header.init ()\n      |> fun h -> Header.add h \"Accept\" \"application/json\"\n   in\n   Client.call ~headers `GET uri >>= fun (_resp, body) ->\n   body |> Cohttp_lwt.Body.to_string >|= fun body -> body\n\nlet () =\n   let respBody = Lwt_main.run reqBody in\n   print_endline (respBody)"
+      - lang: PHP
+        source: "<?php\nrequire_once 'HTTP/Request2.php';\n$request = new HTTP_Request2();\n$request->setUrl('{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>');\n$request->setMethod(HTTP_Request2::METHOD_GET);\n$request->setConfig(array(\n   'follow_redirects' => TRUE\n));\n$request->setHeader(array(\n   'Accept' => 'application/json'\n));\ntry {\n   $response = $request->send();\n   if ($response->getStatus() == 200) {\n      echo $response->getBody();\n   }\n   else {\n      echo 'Unexpected HTTP status: ' . $response->getStatus() . ' ' .\n      $response->getReasonPhrase();\n   }\n}\ncatch(HTTP_Request2_Exception $e) {\n   echo 'Error: ' . $e->getMessage();\n}"
+      - lang: PHP
+        source: "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n   CURLOPT_URL => '%7B%7BbaseUrl%7D%7D/invoices/list/?transaction_type=%3Cstring%3E&document_type=%3Cstring%3E&rfc=%3Cstring%3E&start_date=%3Cdate%3E&end_date=%3Cdate%3E&page=%3Cint32%3E',\n   CURLOPT_RETURNTRANSFER => true,\n   CURLOPT_ENCODING => '',\n   CURLOPT_MAXREDIRS => 10,\n   CURLOPT_TIMEOUT => 0,\n   CURLOPT_FOLLOWLOCATION => true,\n   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n   CURLOPT_CUSTOMREQUEST => 'GET',\n   CURLOPT_HTTPHEADER => array(\n      'Accept: application/json'\n   ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;\n"
+      - lang: PHP
+        source: "<?php\n$client = new http\\Client;\n$request = new http\\Client\\Request;\n$request->setRequestUrl('{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>');\n$request->setRequestMethod('GET');\n$request->setOptions(array());\n$request->setHeaders(array(\n   'Accept' => 'application/json'\n));\n$client->enqueue($request)->send();\n$response = $client->getResponse();\necho $response->getBody();\n"
+      - lang: PowerShell
+        source: '$headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
+
+          $headers.Add("Accept", "application/json")
+
+
+          $response = Invoke-RestMethod ''{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>'' -Method ''GET'' -Headers $headers
+
+          $response | ConvertTo-Json'
+      - lang: Python
+        source: "import requests\n\nurl = \"{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>\"\n\npayload={}\nheaders = {\n   'Accept': 'application/json'\n}\n\nresponse = requests.request(\"GET\", url, headers=headers, data=payload)\n\nprint(response.text)\n"
+      - lang: Python
+        source: "import http.client\n\nconn = http.client.HTTPSConnection(\"{{baseUrl}}\")\npayload = ''\nheaders = {\n   'Accept': 'application/json'\n}\nconn.request(\"GET\", \"/invoices/list/?transaction_type=%3Cstring%3E&document_type=%3Cstring%3E&rfc=%3Cstring%3E&start_date=%3Cdate%3E&end_date=%3Cdate%3E&page=%3Cint32%3E\", payload, headers)\nres = conn.getresponse()\ndata = res.read()\nprint(data.decode(\"utf-8\"))"
+      - lang: Ruby
+        source: 'require "uri"
+
+          require "net/http"
+
+
+          url = URI("{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>")
+
+
+          http = Net::HTTP.new(url.host, url.port);
+
+          request = Net::HTTP::Get.new(url)
+
+          request["Accept"] = "application/json"
+
+
+          response = http.request(request)
+
+          puts response.read_body
+
+          '
+      - lang: Shell
+        source: "http --follow --timeout 3600 GET '{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>' \\\n Accept:'application/json'"
+      - lang: Shell
+        source: "wget --no-check-certificate --quiet \\\n   --method GET \\\n   --timeout=0 \\\n   --header 'Accept: application/json' \\\n    '{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>'"
+      - lang: Swift
+        source: "import Foundation\n#if canImport(FoundationNetworking)\nimport FoundationNetworking\n#endif\n\nvar semaphore = DispatchSemaphore (value: 0)\n\nvar request = URLRequest(url: URL(string: \"{{baseUrl}}/invoices/list/?transaction_type=<string>&document_type=<string>&rfc=<string>&start_date=<date>&end_date=<date>&page=<int32>\")!,timeoutInterval: Double.infinity)\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Accept\")\n\nrequest.httpMethod = \"GET\"\n\nlet task = URLSession.shared.dataTask(with: request) { data, response, error in \n   guard let data = data else {\n      print(String(describing: error))\n      semaphore.signal()\n      return\n   }\n   print(String(data: data, encoding: .utf8)!)\n   semaphore.signal()\n}\n\ntask.resume()\nsemaphore.wait()\n"
+components:
+  schemas:
+    InvoiceList:
+      properties:
+        list:
+          default: {}
+          description: Nodo que contiene el listado de documentos encontrados, así como información sobre la paginación.
+          properties:
+            invoices:
+              description: Arreglo con las facturas encontradas de acuerdo a los filtros proporcionados
+              items:
+                anyOf:
+                - description: Contiene la información sobre un documento fiscal
+                  properties:
+                    conceptos:
+                      default: []
+                      description: Detalle los productos / servicios que se incluyen en el documento
+                      items:
+                        anyOf:
+                        - default: {}
+                          description: Producto / servicio que se incluye en el documento
+                          properties:
+                            cantidad:
+                              default: 0
+                              description: Indica la cantidad que se compra / vende para este producto / servicio
+                              title: Cantidad
+                              type: number
+                            clave_sat:
+                              default: ''
+                              description: Clave SAT del producto / servicio de acuerdo al catálogo del SAT
+                              title: Clave SAT
+                              type: string
+                            id_number:
+                              default: ''
+                              description: Identificador del producto / servicio
+                              title: Identificador
+                              type: string
+                            importe:
+                              default: 0
+                              description: Indica la cantidad vendida multiplicada por el precio unitario
+                              title: Importe
+                              type: integer
+                            impuestos:
+                              default: []
+                              description: Impuestos correspondientes al concepto
+                              items:
+                                anyOf:
+                                - default: {}
+                                  description: Impuesto correspondiente al concepto
+                                  properties:
+                                    base:
+                                      default: 0.0
+                                      description: Indica la base impositiva para el cálculo de impuestos
+                                      title: Base
+                                      type: number
+                                    importe:
+                                      default: 0.0
+                                      description: Indica el importe de impuestos aplicable a este producto / servicio
+                                      title: Importe
+                                      type: number
+                                    impuesto:
+                                      default: ''
+                                      description: Nombre del impuesto que se está aplicando al producto / servicio
+                                      title: Impuesto
+                                      type: string
+                                    retencion:
+                                      default: false
+                                      description: Indica si el impuesto es una retención, de lo contrario, es un traslado
+                                      title: Retención
+                                      type: boolean
+                                    tasaocuota:
+                                      default: 0.0
+                                      description: Indica la tasa o cuota aplicable a este producto / servicio
+                                      title: Tasa o Cuota
+                                      type: number
+                                    tipofactor:
+                                      default: ''
+                                      description: Indica si el cálculo de este impuesto se hace por Tasa o por Cuota
+                                      title: Tipo de Factor
+                                      type: string
+                                  title: Impuesto
+                                  type: object
+                              title: Impuestos
+                              type: array
+                            precio_unitario:
+                              default: 0
+                              description: Precio unitario del producto / servicio
+                              title: Precio
+                              type: number
+                            producto:
+                              default: ''
+                              description: Nombre del producto o servicio
+                              title: Producto
+                              type: string
+                            total:
+                              default: 0
+                              description: Precio del producto multiplicado por la cantidad
+                              title: Total del concepto
+                              type: integer
+                            unidad:
+                              default: null
+                              description: Unidad de medida del producto / servicio de acuerdo al catálogo del SAT
+                              title: Unidad
+                              type: string
+                          title: Concepto
+                          type: object
+                      title: Conceptos
+                      type: array
+                    descuento:
+                      default: 0
+                      description: Descuento aplicable al documento
+                      title: Descuento
+                      type: number
+                    es_nomina:
+                      default: false
+                      description: Indica si el documento en cuestión es un recibo de nómina
+                      title: Es Nomina?
+                      type: boolean
+                    estatus:
+                      default: ''
+                      description: Indica si el documento está Vigente o Cancelado ante el SAT.
+                      title: Estatus
+                      type: string
+                    fecha_expedicion:
+                      default: ''
+                      description: Fecha en que se expidió el documento
+                      format: date
+                      title: Fecha de expedición
+                      type: string
+                    folio:
+                      default: ''
+                      description: Indica el folio de este documento
+                      title: Folio
+                      type: string
+                    nombre_emisor:
+                      default: ''
+                      description: Razón social de la empresa que emite el documento
+                      title: Razón social del emisor
+                      type: string
+                    nombre_receptor:
+                      default: ''
+                      description: Razón social de la empresa que recibe el documento
+                      title: Razón social del receptor
+                      type: string
+                    rfc_emisor:
+                      default: ''
+                      description: RFC de la empresa que emite el documento
+                      title: RFC Emisor
+                      type: string
+                    rfc_receptor:
+                      default: ''
+                      description: Indica el RFC de la empresa que recibe este documento
+                      title: RFC Receptor
+                      type: string
+                    serie:
+                      default: ''
+                      description: Indica la serie de este documento
+                      title: Serie
+                      type: string
+                    subtotal:
+                      default: 0
+                      description: Valor del documento antes de impuestos y descuentos
+                      title: Subtotal
+                      type: integer
+                    tipo_de_comprobante:
+                      default: ''
+                      description: Indica el tipo de comprobante del documento en cuestión.
+                      title: Tipo de comprobante
+                      type: string
+                    total:
+                      default: 0.0
+                      description: Valor total del documento
+                      title: Total
+                      type: number
+                    uuid:
+                      default: ''
+                      description: Identificador único del documento
+                      title: UUID
+                      type: string
+                  title: Documento
+                  type: object
+              title: Facturas encontradas
+              type: array
+            length:
+              default: 0
+              description: Indica el número de documentos en esta página
+              title: Tamaño de página
+              type: integer
+            next_page:
+              default: 0
+              description: Indica cual es la siguiente página en caso de que haya más de 500 registros
+              title: Siguiente página
+              type: integer
+            total:
+              default: 0
+              description: Número total de documentos encontrados
+              title: Total
+              type: integer
+          title: Listado de documentos
+          type: object
+        message:
+          default: ''
+          description: Mensaje de éxito o error generado por la petición
+          title: Mensaje
+          type: string
+        status:
+          default: 0
+          description: Indica el status de la petición 0. Error, 1. Éxito
+          title: Status
+          type: integer
+      type: object
+  securitySchemes:
+    APIKey:
+      description: Llave de API relacionada al usuario que hace la petición.
+      in: header
+      name: Authorization
+      type: apiKey
+x-tagGroups:
+- name: Conciliación
+  tags:
+  - Conciliación
+- name: Tesorería
+  tags:
+  - Movimientos bancarios
+- name: Documentos fiscales
+  tags:
+  - Listado de documentos fiscales
+  - Cargar un documento fiscal
+  - Status de documentos fiscales
+- name: Contabilidad
+  tags:
+  - Balanza de comprobación
+  - Pólizas manuales
+  - Saldo de una cuenta
