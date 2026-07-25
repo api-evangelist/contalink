@@ -1,0 +1,53 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/contalink-openapi-original.json
+server:
+  name: contalink
+  transport: http
+  url: null
+  notes: >-
+    No official hosted/remote MCP server was found for Contalink (no entry in
+    the MCP registry, npm @modelcontextprotocol, or the docs). Tools below are a
+    CANDIDATE surface derived one-per-operation from the OpenAPI so a server can
+    be scaffolded. Auth: static per-company API key in the Authorization header.
+tools:
+- name: get_account_balance
+  description: Obtener el saldo de una cuenta contable (account balance) by account number.
+  source_operation: openapi/contalink-openapi-original.json#GET /accounting/get-account-balance/{accountnumber}/
+- name: get_trial_balance
+  description: Obtener la balanza de comprobación (trial balance) for a period or date range.
+  source_operation: openapi/contalink-openapi-original.json#GET /accounting/trial-balance/
+- name: create_manual_policy
+  description: Crear una póliza manual (manual accounting policy).
+  source_operation: openapi/contalink-openapi-original.json#POST /accounting/manual-accounting-policy/
+- name: get_manual_policy
+  description: Obtener una póliza manual by id.
+  source_operation: openapi/contalink-openapi-original.json#GET /accounting/manual-accounting-policy/{policyid}/
+- name: update_manual_policy
+  description: Editar una póliza manual.
+  source_operation: openapi/contalink-openapi-original.json#PATCH /accounting/manual-accounting-policy/{policyid}/
+- name: delete_manual_policy
+  description: Eliminar una póliza manual.
+  source_operation: openapi/contalink-openapi-original.json#DELETE /accounting/manual-accounting-policy/{policyid}/
+- name: create_conciliation
+  description: Crear una conciliación de una factura (invoice reconciliation).
+  source_operation: openapi/contalink-openapi-original.json#POST /conciliation/create/
+- name: list_fiscal_documents
+  description: Obtener un listado de documentos fiscales (CFDI) with filters.
+  source_operation: openapi/contalink-openapi-original.json#GET /invoices/list/
+- name: upload_fiscal_document
+  description: Subir un documento fiscal (XML) a Contalink (asynchronous).
+  source_operation: openapi/contalink-openapi-original.json#POST /invoices/upload/
+- name: check_fiscal_document_status
+  description: Validar el status de un documento fiscal by UUID.
+  source_operation: openapi/contalink-openapi-original.json#GET /invoices/check-status/{uuid}/
+- name: create_bank_transaction
+  description: Crear un movimiento bancario (bank deposit/withdrawal).
+  source_operation: openapi/contalink-openapi-original.json#POST /treasury/bank-transactions/
+- name: get_bank_transaction
+  description: Obtener un movimiento bancario by id.
+  source_operation: openapi/contalink-openapi-original.json#GET /treasury/bank-transactions/{id}/
+- name: delete_bank_transaction
+  description: Eliminar un movimiento bancario.
+  source_operation: openapi/contalink-openapi-original.json#DELETE /treasury/bank-transactions/{id}/

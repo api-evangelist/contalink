@@ -1,0 +1,28 @@
+{
+  "provider": "contalink",
+  "sources": [
+    "contalink-balanza-de-comprobaci-n-api-openapi.yml",
+    "contalink-cargar-un-documento-fiscal-api-openapi.yml",
+    "contalink-conciliaci-n-api-openapi.yml",
+    "contalink-listado-de-documentos-fiscales-api-openapi.yml",
+    "contalink-movimientos-bancarios-api-openapi.yml",
+    "contalink-p-lizas-manuales-api-openapi.yml",
+    "contalink-saldo-de-una-cuenta-api-openapi.yml",
+    "contalink-status-de-documentos-fiscales-api-openapi.yml"
+  ],
+  "outputs": [
+    "contalink-balanza-de-comprobaci-n-api-openapi.yml",
+    "contalink-cargar-un-documento-fiscal-api-openapi.yml",
+    "contalink-conciliaci-n-api-openapi.yml",
+    "contalink-listado-de-documentos-fiscales-api-openapi.yml",
+    "contalink-movimientos-bancarios-api-openapi.yml",
+    "contalink-p-lizas-manuales-api-openapi.yml",
+    "contalink-saldo-de-una-cuenta-api-openapi.yml",
+    "contalink-status-de-documentos-fiscales-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,76 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/contalink-openapi-original.json + https://tutoriales.contalink.com/es/articles/8569647-configuracion-api
+summary: >-
+  Cross-cutting request/response semantics for the Contalink API, derived from
+  the OpenAPI 3.0.0 document and the API configuration guide. REST/JSON over
+  HTTPS, single production host, static per-company API key.
+authentication:
+  style: api-key
+  location: header
+  header: Authorization
+  scope: per-company
+  notes: >-
+    The API key is tied to a specific user inside a specific company; every
+    request is logged as that user. A separate key is provisioned per company.
+    See authentication/contalink-authentication.yml.
+base_url: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+media_type: application/json
+pagination:
+  style: page-number
+  params:
+  - page
+  applies_to:
+  - GET /invoices/list/
+  notes: >-
+    The fiscal-document listing accepts an optional `page` query parameter for
+    page-number pagination. Other collection reads are date/period scoped rather
+    than paged.
+filtering:
+  date_range:
+    params:
+    - start_date
+    - end_date
+    - period
+    format: 'YYYY-MM-DD'
+    applies_to:
+    - GET /invoices/list/
+    - GET /accounting/trial-balance/
+  other:
+  - param: transaction_type
+    note: emitted vs received fiscal documents
+  - param: document_type
+    note: CFDI type (invoice, payroll, credit note, payment)
+  - param: rfc
+    note: company RFC filter
+idempotency:
+  supported: false
+  notes: >-
+    No idempotency-key header or parameter is documented in the OpenAPI or the
+    configuration guide. Document upload (POST /invoices/upload/) is processed
+    asynchronously and its status is polled via GET /invoices/check-status/{uuid}/;
+    de-duplication is left to the caller.
+request_id:
+  supported: false
+  notes: No request-id / trace header documented.
+versioning:
+  scheme: spec-version
+  current: 1.0.4
+  in_path: false
+  notes: >-
+    Version is carried in the OpenAPI info.version (1.0.4); the base path is
+    `/prod` with no version segment in the URL. See lifecycle/contalink-lifecycle.yml.
+error_envelope:
+  shape: >-
+    Response bodies carry a `status` and `message` field on every documented
+    schema (AccountBalance, BankTransactionResult, ConciliationPolicyResponse,
+    InvoiceList, InvoiceStatus, ManualPolicyResponse, TrialBalance,
+    UploadXMLResult). The OpenAPI only documents 200 responses; no RFC 9457
+    problem+json envelope is declared.
+  format: custom-status-message
+rate_limit_signaling:
+  documented: false
+cross_links:
+  authentication: authentication/contalink-authentication.yml
+  lifecycle: lifecycle/contalink-lifecycle.yml
+  data_model: data-model/contalink-data-model.yml

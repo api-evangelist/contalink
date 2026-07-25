@@ -1,7 +1,18 @@
 aid: contalink
 name: Contalink
-description: Contalink is a company surfaced as a portfolio company of 500-global and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Contalink is a Mexican cloud accounting and payroll platform ("contabilidad en
+  la nube") built for independent accountants, accounting firms (despachos) and
+  SMEs. It automates repetitive Mexican fiscal work — bulk CFDI download and
+  classification, electronic accounting, DIOT preparation, treasury and bank
+  reconciliation, invoicing (facturación) and payroll (nómina) with digital
+  stamping — across multiple companies and users. Contalink also exposes a REST
+  API that lets external systems read and post accounting data: trial balance
+  (balanza de comprobación), account balances, manual accounting policies
+  (pólizas manuales), invoice reconciliation (conciliación), bank transactions
+  (movimientos bancarios) and CFDI fiscal-document listing, upload and status
+  checks. The API authenticates with a per-company API key sent in the
+  Authorization header. Backed by 500 Global.
 url: https://raw.githubusercontent.com/api-evangelist/contalink/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,12 +20,179 @@ x-backed-by:
 - 500-global
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://www.contalink.com/favicon.ico
 tags:
 - Company
-apis: []
+- Accounting
+- Bookkeeping
+- Payroll
+- Tax
+- Fintech
+- Invoicing
+- CFDI
+- Mexico
+- SaaS
+apis:
+- aid: contalink:contalink-balanza-de-comprobaci-n-api
+  name: Contalink Balanza de comprobación API
+  description: Obtiene la balanza de comprobación según los parámetros enviados
+  humanURL: https://apidocs.contalink.com
+  baseURL: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+  tags:
+  - Balanza de comprobación
+  properties:
+  - type: OpenAPI
+    url: openapi/contalink-balanza-de-comprobaci-n-api-openapi.yml
+  - type: Authentication
+    url: authentication/contalink-authentication.yml
+  - type: Conventions
+    url: conventions/contalink-conventions.yml
+  - type: DataModel
+    url: data-model/contalink-data-model.yml
+  - type: Conformance
+    url: conformance/contalink-conformance.yml
+- aid: contalink:contalink-cargar-un-documento-fiscal-api
+  name: Contalink Cargar un documento fiscal API
+  description: Carga un documento fiscal al sistema
+  humanURL: https://apidocs.contalink.com
+  baseURL: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+  tags:
+  - Cargar un documento fiscal
+  properties:
+  - type: OpenAPI
+    url: openapi/contalink-cargar-un-documento-fiscal-api-openapi.yml
+  - type: Authentication
+    url: authentication/contalink-authentication.yml
+  - type: Conventions
+    url: conventions/contalink-conventions.yml
+  - type: DataModel
+    url: data-model/contalink-data-model.yml
+  - type: Conformance
+    url: conformance/contalink-conformance.yml
+- aid: contalink:contalink-conciliaci-n-api
+  name: Contalink Conciliación API
+  description: Realiza la conciliación por medio del UUID de la factura proporcionada.
+  humanURL: https://apidocs.contalink.com
+  baseURL: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+  tags:
+  - Conciliación
+  properties:
+  - type: OpenAPI
+    url: openapi/contalink-conciliaci-n-api-openapi.yml
+  - type: Authentication
+    url: authentication/contalink-authentication.yml
+  - type: Conventions
+    url: conventions/contalink-conventions.yml
+  - type: DataModel
+    url: data-model/contalink-data-model.yml
+  - type: Conformance
+    url: conformance/contalink-conformance.yml
+- aid: contalink:contalink-listado-de-documentos-fiscales-api
+  name: Contalink Listado de documentos fiscales API
+  description: Obtiene un listado de los documentos fiscales que correspondan a los filtros enviados
+  humanURL: https://apidocs.contalink.com
+  baseURL: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+  tags:
+  - Listado de documentos fiscales
+  properties:
+  - type: OpenAPI
+    url: openapi/contalink-listado-de-documentos-fiscales-api-openapi.yml
+  - type: Authentication
+    url: authentication/contalink-authentication.yml
+  - type: Conventions
+    url: conventions/contalink-conventions.yml
+  - type: DataModel
+    url: data-model/contalink-data-model.yml
+  - type: Conformance
+    url: conformance/contalink-conformance.yml
+- aid: contalink:contalink-movimientos-bancarios-api
+  name: Contalink Movimientos bancarios API
+  description: >-
+    Gestiona altas y bajas de los movimientos que se dan en los bancos, tarjetas, cajas, etc.
+  humanURL: https://apidocs.contalink.com
+  baseURL: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+  tags:
+  - Movimientos bancarios
+  properties:
+  - type: OpenAPI
+    url: openapi/contalink-movimientos-bancarios-api-openapi.yml
+  - type: Authentication
+    url: authentication/contalink-authentication.yml
+  - type: Conventions
+    url: conventions/contalink-conventions.yml
+  - type: DataModel
+    url: data-model/contalink-data-model.yml
+  - type: Conformance
+    url: conformance/contalink-conformance.yml
+- aid: contalink:contalink-p-lizas-manuales-api
+  name: Contalink Pólizas manuales API
+  description: Gestiona altas, bajas y cambios de las pólizas manuales.
+  humanURL: https://apidocs.contalink.com
+  baseURL: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+  tags:
+  - Pólizas manuales
+  properties:
+  - type: OpenAPI
+    url: openapi/contalink-p-lizas-manuales-api-openapi.yml
+  - type: Authentication
+    url: authentication/contalink-authentication.yml
+  - type: Conventions
+    url: conventions/contalink-conventions.yml
+  - type: DataModel
+    url: data-model/contalink-data-model.yml
+  - type: Conformance
+    url: conformance/contalink-conformance.yml
+- aid: contalink:contalink-saldo-de-una-cuenta-api
+  name: Contalink Saldo de una cuenta API
+  description: Obtiene el saldo de una cuenta contable
+  humanURL: https://apidocs.contalink.com
+  baseURL: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+  tags:
+  - Saldo de una cuenta
+  properties:
+  - type: OpenAPI
+    url: openapi/contalink-saldo-de-una-cuenta-api-openapi.yml
+  - type: Authentication
+    url: authentication/contalink-authentication.yml
+  - type: Conventions
+    url: conventions/contalink-conventions.yml
+  - type: DataModel
+    url: data-model/contalink-data-model.yml
+  - type: Conformance
+    url: conformance/contalink-conformance.yml
+- aid: contalink:contalink-status-de-documentos-fiscales-api
+  name: Contalink Status de documentos fiscales API
+  description: Valida los status de vigencia y pago de un documento fiscal
+  humanURL: https://apidocs.contalink.com
+  baseURL: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+  tags:
+  - Status de documentos fiscales
+  properties:
+  - type: OpenAPI
+    url: openapi/contalink-status-de-documentos-fiscales-api-openapi.yml
+  - type: Authentication
+    url: authentication/contalink-authentication.yml
+  - type: Conventions
+    url: conventions/contalink-conventions.yml
+  - type: DataModel
+    url: data-model/contalink-data-model.yml
+  - type: Conformance
+    url: conformance/contalink-conformance.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -23,3 +201,42 @@ maintainers:
 common:
 - type: Website
   url: https://contalink.com
+- type: DeveloperPortal
+  url: https://apidocs.contalink.com
+- type: APIReference
+  url: https://apidocs.contalink.com
+- type: Documentation
+  url: https://tutoriales.contalink.com/es/
+- type: GettingStarted
+  url: https://tutoriales.contalink.com/es/articles/8569647-configuracion-api
+- type: Support
+  url: https://tutoriales.contalink.com/es/
+- type: Blog
+  url: https://www.contalink.com/blog
+- type: Pricing
+  url: https://www.contalink.com/precios
+- type: SignUp
+  url: https://contalink.com/empezarahora
+- type: Login
+  url: https://app.contalink.com/
+- type: PrivacyPolicy
+  url: https://contalink.com/terms-conditions
+- type: GitHubOrganization
+  url: https://github.com/Contalink
+- type: StatusPage
+  url: https://estatus.contalink.com/
+- type: Lifecycle
+  url: lifecycle/contalink-lifecycle.yml
+- type: WellKnown
+  url: well-known/contalink-well-known.yml
+- type: DomainSecurity
+  url: security/contalink-domain-security.yml
+- type: LLMsTxt
+  url: llms/contalink-llms.txt
+- type: AgenticAccess
+  url: agentic-access/contalink-agentic-access.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

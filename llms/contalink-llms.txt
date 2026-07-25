@@ -1,0 +1,37 @@
+# Contalink
+
+> Contalink is a Mexican cloud accounting and payroll platform for independent accountants, accounting firms (despachos) and SMEs. It automates Mexican fiscal work — bulk CFDI download and classification, electronic accounting, DIOT, treasury and bank reconciliation, invoicing and payroll with digital stamping — and exposes a REST API to read and post accounting data.
+
+## API
+
+- [Contalink API reference](https://apidocs.contalink.com): REST API documentation (OpenAPI 3.0.0, v1.0.4)
+- [API configuration guide](https://tutoriales.contalink.com/es/articles/8569647-configuracion-api): how to request and use your per-company API key
+
+Authentication: static per-company API key sent in the `Authorization` header. Base URL: https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod
+
+Operations:
+- GET /accounting/get-account-balance/{accountnumber}/ — account balance
+- GET /accounting/trial-balance/ — trial balance (balanza de comprobación)
+- POST/GET/PATCH/DELETE /accounting/manual-accounting-policy/ — manual accounting policies (pólizas manuales)
+- POST /conciliation/create/ — invoice reconciliation (conciliación)
+- GET /invoices/list/ — list CFDI fiscal documents
+- POST /invoices/upload/ — upload a fiscal document XML (asynchronous)
+- GET /invoices/check-status/{uuid}/ — CFDI status
+- POST/GET/DELETE /treasury/bank-transactions/ — bank movements (movimientos bancarios)
+
+## Specs
+
+- [OpenAPI (original)](https://raw.githubusercontent.com/api-evangelist/contalink/refs/heads/main/openapi/contalink-openapi-original.json)
+- [OpenAPI Overlay (AE enhancements)](https://raw.githubusercontent.com/api-evangelist/contalink/refs/heads/main/overlays/contalink-openapi-overlay.yaml)
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/contalink/refs/heads/main/authentication/contalink-authentication.yml)
+- [API conventions](https://raw.githubusercontent.com/api-evangelist/contalink/refs/heads/main/conventions/contalink-conventions.yml)
+- [Data model](https://raw.githubusercontent.com/api-evangelist/contalink/refs/heads/main/data-model/contalink-data-model.yml)
+
+## Docs
+
+- [Product site](https://contalink.com)
+- [Manual de uso / tutorials](https://tutoriales.contalink.com/es/)
+- [Pricing](https://www.contalink.com/precios)
+- [Status page](https://estatus.contalink.com/)
+- [Sign up](https://contalink.com/empezarahora)
+- [Login](https://app.contalink.com/)

@@ -1,0 +1,29 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/contalink-openapi-original.json
+note: >-
+  The source OpenAPI omits operationIds; steps below reference operations by
+  their real HTTP method + path. Suggested operationIds are added in
+  overlays/contalink-openapi-overlay.yaml.
+skills:
+- file: contalink-reconcile-invoice-payment.md
+  name: Reconcile an invoice payment against a bank movement
+  api: openapi/contalink-openapi-original.json
+  operations:
+  - GET /invoices/list/
+  - POST /treasury/bank-transactions/
+  - POST /conciliation/create/
+- file: contalink-upload-and-verify-cfdi.md
+  name: Upload a CFDI and verify its status
+  api: openapi/contalink-openapi-original.json
+  operations:
+  - POST /invoices/upload/
+  - GET /invoices/check-status/{uuid}/
+  - GET /invoices/list/
+- file: contalink-post-manual-policy.md
+  name: Post a manual accounting policy and check the balance
+  api: openapi/contalink-openapi-original.json
+  operations:
+  - POST /accounting/manual-accounting-policy/
+  - GET /accounting/get-account-balance/{accountnumber}/
+  - GET /accounting/trial-balance/

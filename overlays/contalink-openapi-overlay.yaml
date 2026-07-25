@@ -1,0 +1,54 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Contalink API
+  version: 1.0.0
+generated: '2026-07-18'
+method: generated
+extends: openapi/contalink-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-rating: 3
+    x-apievangelist-notes: >-
+      Real OpenAPI 3.0.0 harvested from apidocs.contalink.com. Enhancements below
+      add operationIds (the source spec omits them) so agents, SDKs and Arazzo
+      workflows can reference operations by stable id.
+- target: $.paths['/accounting/get-account-balance/{accountnumber}/'].get
+  update:
+    operationId: getAccountBalance
+- target: $.paths['/accounting/trial-balance/'].get
+  update:
+    operationId: getTrialBalance
+- target: $.paths['/accounting/manual-accounting-policy/'].post
+  update:
+    operationId: createManualPolicy
+- target: $.paths['/accounting/manual-accounting-policy/{policyid}/'].get
+  update:
+    operationId: getManualPolicy
+- target: $.paths['/accounting/manual-accounting-policy/{policyid}/'].patch
+  update:
+    operationId: updateManualPolicy
+- target: $.paths['/accounting/manual-accounting-policy/{policyid}/'].delete
+  update:
+    operationId: deleteManualPolicy
+- target: $.paths['/conciliation/create/'].post
+  update:
+    operationId: createConciliation
+- target: $.paths['/invoices/list/'].get
+  update:
+    operationId: listFiscalDocuments
+- target: $.paths['/invoices/upload/'].post
+  update:
+    operationId: uploadFiscalDocument
+- target: $.paths['/invoices/check-status/{uuid}/'].get
+  update:
+    operationId: checkFiscalDocumentStatus
+- target: $.paths['/treasury/bank-transactions/'].post
+  update:
+    operationId: createBankTransaction
+- target: $.paths['/treasury/bank-transactions/{id}/'].get
+  update:
+    operationId: getBankTransaction
+- target: $.paths['/treasury/bank-transactions/{id}/'].delete
+  update:
+    operationId: deleteBankTransaction

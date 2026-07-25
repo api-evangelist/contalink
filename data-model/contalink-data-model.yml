@@ -1,0 +1,91 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/contalink-openapi-original.json
+summary: >-
+  Entity-relationship graph derived from the Contalink OpenAPI component schemas
+  and id-reference fields. The domain centers on Mexican accounting objects:
+  accounting policies (pólizas), the trial balance and account balances,
+  CFDI fiscal documents, bank transactions (movimientos bancarios) and their
+  reconciliation (conciliación) against invoices.
+entities:
+- name: Account
+  description: A chart-of-accounts account, addressed by account number.
+  key: accountnumber
+  schemas:
+  - AccountBalance
+  operations:
+  - GET /accounting/get-account-balance/{accountnumber}/
+- name: TrialBalance
+  description: Trial balance (balanza de comprobación) for a period / date range.
+  schemas:
+  - TrialBalance
+  operations:
+  - GET /accounting/trial-balance/
+- name: ManualPolicy
+  description: A manual accounting policy (póliza manual) with accounting_records.
+  key: policyid
+  schemas:
+  - ManualPolicy
+  - ManualPolicyResponse
+  operations:
+  - POST /accounting/manual-accounting-policy/
+  - GET /accounting/manual-accounting-policy/{policyid}/
+  - PATCH /accounting/manual-accounting-policy/{policyid}/
+  - DELETE /accounting/manual-accounting-policy/{policyid}/
+- name: FiscalDocument
+  description: A CFDI fiscal document (invoice, payroll, credit note, payment), keyed by UUID.
+  key: uuid
+  schemas:
+  - InvoiceList
+  - InvoiceStatus
+  - UploadXML
+  - UploadXMLResult
+  operations:
+  - GET /invoices/list/
+  - POST /invoices/upload/
+  - GET /invoices/check-status/{uuid}/
+- name: Conciliation
+  description: A reconciliation record linking a payment to an invoice.
+  schemas:
+  - ConciliationPolicy
+  - ConciliationPolicyResponse
+  operations:
+  - POST /conciliation/create/
+- name: BankTransaction
+  description: A bank movement (deposit/withdrawal) on a bank account.
+  key: id
+  schemas:
+  - BankTransaction
+  - BankTransactionResult
+  operations:
+  - POST /treasury/bank-transactions/
+  - GET /treasury/bank-transactions/{id}/
+  - DELETE /treasury/bank-transactions/{id}/
+relationships:
+- from: Conciliation
+  to: FiscalDocument
+  type: belongs_to
+  via: invoice_id
+- from: Conciliation
+  to: BankTransaction
+  type: belongs_to
+  via: bank_account
+  note: reconciliation references the bank account / payment_form the payment settled on
+- from: BankTransaction
+  to: Account
+  type: belongs_to
+  via: bank
+  note: bank movement is booked against a bank account in the chart of accounts
+- from: ManualPolicy
+  to: Account
+  type: has_many
+  via: accounting_records
+  note: each accounting record in a manual policy posts to a chart-of-accounts account
+- from: TrialBalance
+  to: Account
+  type: has_many
+  via: trial_balance
+notes: >-
+  id-prefix / domain conventions are not published in a public object reference;
+  RFC (tax ID) and CFDI UUID are the primary external identifiers. Relationships
+  are inferred from schema field names (invoice_id, bank_account, accounting_records).

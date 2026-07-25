@@ -1,0 +1,30 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/contalink-openapi-original.json + https://estatus.contalink.com/
+versioning:
+  scheme: spec-version
+  current: '1.0.4'
+  in_path: false
+  docs: https://apidocs.contalink.com
+  notes: >-
+    Version tracked in the OpenAPI info.version. The production base path is
+    `/prod` on API Gateway with no version segment in the URL.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No public deprecation policy or RFC 8594 Sunset/Deprecation header support documented.
+sla:
+  url: null
+  uptime_target: null
+status_page: https://estatus.contalink.com/
+status_page_provider: Atlassian Statuspage
+status_page_components: >-
+  ~24 monitored components across web platform, accounting (Contabilidad, CFDI
+  classification), CFDI download, treasury/reconciliation (Tesorería,
+  Conciliación, Autoconciliación), tax (DIOT, obligations dashboard), invoicing
+  (Facturación), payroll (Nómina), mobile app, integrations and WhatsApp
+  assistant. Subscribe via email, Slack, Atom and RSS.
+deprecated_operations: []
+notes: >-
+  No operations are flagged deprecated in the OpenAPI. Status page is live on
+  Atlassian Statuspage; no separately published SLA or deprecation policy found.
