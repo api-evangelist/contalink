@@ -199,6 +199,12 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgentSkill
+  url: skills/contalink-post-manual-policy.md
+- type: MCPServer
+  url: mcp/contalink-mcp.yml
+- type: Overlay
+  url: overlays/contalink-openapi-overlay.yaml
 - type: Website
   url: https://contalink.com
 - type: DeveloperPortal
