@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Contalink Balanza de comprobación Listado de documentos fiscales API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listado de documentos fiscales",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obtiene un listado de documentos fiscales",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/invoices/list/",
+            "params": [
+              {
+                "name": "transaction_type",
+                "value": "",
+                "type": "query",
+                "description": "Indica si se quieren obtener los documentos fiscales emitidos o recibidos"
+              },
+              {
+                "name": "document_type",
+                "value": "",
+                "type": "query",
+                "description": "Tipo de documento fiscal que se quiere obtener. (Comprobantes de nómina, Facturas, Notas de crédito, Complementos de pago)"
+              },
+              {
+                "name": "rfc",
+                "value": "",
+                "type": "query",
+                "description": "RFC de la empresa para la cual se quieren obtener los documentos fiscales"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Fecha inicial para obtener los documentos (YYYY-MM-DD)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Fecha final para obtener los documentos (YYYY-MM-DD)"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Parámetro opcional que indica el número de página a obtener, si no se especifica, su valor será 0"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtiene un listado de documentos fiscales."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

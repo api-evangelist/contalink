@@ -1,0 +1,383 @@
+{
+  "item": [
+    {
+      "id": "095ecf13-391f-4c03-81ae-1e77ce3cf245",
+      "name": "Movimientos bancarios",
+      "description": {
+        "content": "Gestiona altas y bajas de los movimientos que se dan en los bancos, tarjetas, cajas, etc. ",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1aa2f78f-9e0c-4f03-b3c3-405507403793",
+          "name": "Crea un movimiento bancario",
+          "request": {
+            "name": "Crea un movimiento bancario",
+            "description": {
+              "content": "Endpoiint para crear movimientos bancarios.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "treasury",
+                "bank-transactions",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reference\": \"\",\n  \"date\": \"\",\n  \"bank\": \"\",\n  \"deposit\": 0,\n  \"withdrawal\": 0,\n  \"description\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6f7f4c7d-38da-40f8-9fb6-71de1e89bea0",
+              "name": "0 indica error, 1 indica éxito",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "treasury",
+                    "bank-transactions",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference\": \"\",\n  \"date\": \"\",\n  \"bank\": \"\",\n  \"deposit\": 0,\n  \"withdrawal\": 0,\n  \"description\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"\",\n  \"status\": 0,\n  \"transaction_bank\": {\n    \"bank\": \"\",\n    \"date\": \"\",\n    \"deposit\": 0,\n    \"description\": \"\",\n    \"id\": 0,\n    \"reference\": \"\",\n    \"withdrawal\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61675346-36f9-47cf-ab25-62c30bcc19db",
+          "name": "Elimina movimiento bancario",
+          "request": {
+            "name": "Elimina movimiento bancario",
+            "description": {
+              "content": "Elimina un movimiento bancario.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "treasury",
+                "bank-transactions",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "id",
+                  "description": "(Required) Id de la movimiento que se requiere eliminar"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eb447e58-9cee-40be-9456-8bc1a2231ba0",
+              "name": "0 indica error, 1 indica éxito.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "treasury",
+                    "bank-transactions",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) Id de la movimiento que se requiere eliminar"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"\",\n  \"status\": 0,\n  \"transaction_bank\": {\n    \"bank\": \"\",\n    \"date\": \"\",\n    \"deposit\": 0,\n    \"description\": \"\",\n    \"id\": 0,\n    \"reference\": \"\",\n    \"withdrawal\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0ba8c6e-9dcd-468b-ba86-2a673f202174",
+          "name": "Obtiene un movimiento bancario",
+          "request": {
+            "name": "Obtiene un movimiento bancario",
+            "description": {
+              "content": "Obtiene la información de un movimiento bancario.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "treasury",
+                "bank-transactions",
+                ":id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "id",
+                  "description": "(Required) Id de la movimiento que se requiere obtener"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fe2cf2a8-f6f0-4ee1-9cec-3cea96864905",
+              "name": "0 indica error, 1 indica éxito.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "treasury",
+                    "bank-transactions",
+                    ":id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "id",
+                      "description": "(Required) Id de la movimiento que se requiere obtener"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"\",\n  \"status\": 0,\n  \"transaction_bank\": {\n    \"bank\": \"\",\n    \"date\": \"\",\n    \"deposit\": 0,\n    \"description\": \"\",\n    \"id\": 0,\n    \"reference\": \"\",\n    \"withdrawal\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7a0ceea8-9a38-4090-92f2-67c3587e4a2f",
+    "name": "API Contalink Balanza de comprobación Movimientos bancarios API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducción\nDocumentación del API de Contalink\n\n# Autenticación\n\nEl método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.\n\n<SecurityDefinitions />\n",
+      "type": "text/plain"
+    }
+  }
+}

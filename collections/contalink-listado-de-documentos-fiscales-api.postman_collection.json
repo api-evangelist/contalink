@@ -1,0 +1,192 @@
+{
+  "item": [
+    {
+      "id": "588fb3fd-2d3d-4deb-8410-1989c7fa19b1",
+      "name": "Listado de documentos fiscales",
+      "description": {
+        "content": "Obtiene un listado de los documentos fiscales que correspondan a los filtros enviados",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "638b7505-6edd-4ec1-acc9-2a730a598402",
+          "name": "Obtiene un listado de documentos fiscales",
+          "request": {
+            "name": "Obtiene un listado de documentos fiscales",
+            "description": {
+              "content": "Obtiene un listado de documentos fiscales.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices",
+                "list",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "transaction_type",
+                  "value": "<string>",
+                  "description": "(Required) Indica si se quieren obtener los documentos fiscales emitidos o recibidos"
+                },
+                {
+                  "disabled": false,
+                  "key": "document_type",
+                  "value": "<string>",
+                  "description": "(Required) Tipo de documento fiscal que se quiere obtener. (Comprobantes de nómina, Facturas, Notas de crédito, Complementos de pago)"
+                },
+                {
+                  "disabled": false,
+                  "key": "rfc",
+                  "value": "<string>",
+                  "description": "(Required) RFC de la empresa para la cual se quieren obtener los documentos fiscales"
+                },
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Fecha inicial para obtener los documentos (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Fecha final para obtener los documentos (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<int32>",
+                  "description": "Parámetro opcional que indica el número de página a obtener, si no se especifica, su valor será 0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c17d0c5b-085d-4515-9618-9ef837cb4148",
+              "name": "0 indica error, 1 indica éxito.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    "list",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "transaction_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "document_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rfc",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<int32>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"list\": {},\n  \"message\": \"\",\n  \"status\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "65fa2966-f446-45dc-9c72-b5aa440b752d",
+    "name": "API Contalink Balanza de comprobación Listado de documentos fiscales API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducción\nDocumentación del API de Contalink\n\n# Autenticación\n\nEl método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.\n\n<SecurityDefinitions />\n",
+      "type": "text/plain"
+    }
+  }
+}

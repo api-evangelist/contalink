@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Contalink Balanza de comprobación Cargar un documento fiscal API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cargar un documento fiscal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Sube un documento a Contalink",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/invoices/upload/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Endpoint para subir documentos fiscales a Contalink. Es importante señalar que la subida de documentos al sistema es asíncrona. La respuesta de este endpoint contiene una URL de Google Firebase donde se puede consultar el status de la carga."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

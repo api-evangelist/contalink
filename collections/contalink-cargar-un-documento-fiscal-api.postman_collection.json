@@ -1,0 +1,151 @@
+{
+  "item": [
+    {
+      "id": "0e13a5c4-ba20-434b-832a-7ac80a788473",
+      "name": "Cargar un documento fiscal",
+      "description": {
+        "content": "Carga un documento fiscal al sistema",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6a2575dc-46b9-4b36-b5bc-3b2c3f71cea6",
+          "name": "Sube un documento a Contalink",
+          "request": {
+            "name": "Sube un documento a Contalink",
+            "description": {
+              "content": "Endpoint para subir documentos fiscales a Contalink. Es importante señalar que la subida de documentos al sistema es asíncrona. La respuesta de este endpoint contiene una URL de Google Firebase donde se puede consultar el status de la carga.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices",
+                "upload",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"xml\": \"<string>\",\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21324b60-1513-4eb8-9ef8-5822e9c75f3f",
+              "name": "0 indica error, 1 indica éxito",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    "upload",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"xml\": \"<string>\",\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"result\": {\n    \"url\": \"string\"\n  },\n  \"status\": 7091.014803967807\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f5e8c41e-89ab-42d6-8002-0990c151100b",
+    "name": "API Contalink Balanza de comprobación Cargar un documento fiscal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducción\nDocumentación del API de Contalink\n\n# Autenticación\n\nEl método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.\n\n<SecurityDefinitions />\n",
+      "type": "text/plain"
+    }
+  }
+}

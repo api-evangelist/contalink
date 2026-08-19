@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Contalink Balanza de comprobación API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Balanza de comprobación",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obtener balanza de comprobación",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/accounting/trial-balance/",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Fecha inicial para obtener la balanza de comprobación (YYYY-MM-DD)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Fecha final para obtener la balanza de comprobación (YYYY-MM-DD)"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Indica como se quieren tratar las transacciones realizadas en el periodo 13. Las opciones son Incluir (I) u Omitir (O)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtiene la balanza de comprobación según los parámetros enviados"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

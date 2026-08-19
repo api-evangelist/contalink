@@ -1,0 +1,162 @@
+{
+  "item": [
+    {
+      "id": "80239ce1-aadf-4bc5-9abf-3e26c8a25b9e",
+      "name": "Balanza de comprobación",
+      "description": {
+        "content": "Obtiene la balanza de comprobación según los parámetros enviados",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "96ce8a8b-8d22-4599-877f-e2bb66fef30d",
+          "name": "Obtener balanza de comprobación",
+          "request": {
+            "name": "Obtener balanza de comprobación",
+            "description": {
+              "content": "Obtiene la balanza de comprobación según los parámetros enviados",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounting",
+                "trial-balance",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_date",
+                  "value": "<date>",
+                  "description": "(Required) Fecha inicial para obtener la balanza de comprobación (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_date",
+                  "value": "<date>",
+                  "description": "(Required) Fecha final para obtener la balanza de comprobación (YYYY-MM-DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>",
+                  "description": "(Required) Indica como se quieren tratar las transacciones realizadas en el periodo 13. Las opciones son Incluir (I) u Omitir (O)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "96279343-906a-4e04-8f0b-354113beb869",
+              "name": "0 indica error, 1 indica éxito.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    "trial-balance",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "period",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"\",\n  \"status\": 0,\n  \"trial_balance\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "85281ad9-d665-4571-bac3-fe9e79a523dc",
+    "name": "API Contalink Balanza de comprobación API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducción\nDocumentación del API de Contalink\n\n# Autenticación\n\nEl método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.\n\n<SecurityDefinitions />\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "item": [
+    {
+      "id": "803337ed-80af-45f6-ac17-d581a873f0c5",
+      "name": "Status de documentos fiscales",
+      "description": {
+        "content": "Valida los status de vigencia y pago de un documento fiscal",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e333c6c2-5c04-4e42-9492-818a6d102bc5",
+          "name": "Valida el status de un documento fiscal",
+          "request": {
+            "name": "Valida el status de un documento fiscal",
+            "description": {
+              "content": "Valida el status de un documento fiscal",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices",
+                "check-status",
+                ":uuid",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uuid",
+                  "description": "(Required) UUID del documento fiscal que se quiere validar"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "73426dd1-ff0f-47a6-a4fc-d0a982429ec8",
+              "name": "0 indica error, 1 indica éxito.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    "check-status",
+                    ":uuid",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) UUID del documento fiscal que se quiere validar"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"invoice\": {\n    \"contabilizado\": false,\n    \"estatus\": \"\",\n    \"metodo_pago\": \"\",\n    \"tesoreria\": 0\n  },\n  \"message\": \"\",\n  \"status\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9145529c-6183-4f3d-afd5-50f4f4375247",
+    "name": "API Contalink Balanza de comprobación Status de documentos fiscales API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducción\nDocumentación del API de Contalink\n\n# Autenticación\n\nEl método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.\n\n<SecurityDefinitions />\n",
+      "type": "text/plain"
+    }
+  }
+}

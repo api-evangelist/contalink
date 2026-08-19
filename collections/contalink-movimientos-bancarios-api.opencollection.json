@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Contalink Balanza de comprobación Movimientos bancarios API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Movimientos bancarios",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Crea un movimiento bancario",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/treasury/bank-transactions/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Endpoiint para crear movimientos bancarios."
+        },
+        {
+          "info": {
+            "name": "Obtiene un movimiento bancario",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/treasury/bank-transactions/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id de la movimiento que se requiere obtener"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtiene la información de un movimiento bancario."
+        },
+        {
+          "info": {
+            "name": "Elimina movimiento bancario",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/treasury/bank-transactions/:id/",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id de la movimiento que se requiere eliminar"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Elimina un movimiento bancario."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

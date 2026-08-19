@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Contalink Balanza de comprobación Pólizas manuales API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pólizas manuales",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Crea una póliza manual.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/accounting/manual-accounting-policy/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Endpoint para crear pólizas manuales."
+        },
+        {
+          "info": {
+            "name": "Obtiene una póliza manual",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/accounting/manual-accounting-policy/:policyid/",
+            "params": [
+              {
+                "name": "policyid",
+                "value": "",
+                "type": "path",
+                "description": "Id de la póliza que se requiere obtener"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtiene la información de una póliza manual."
+        },
+        {
+          "info": {
+            "name": "Edita una póliza manual",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/accounting/manual-accounting-policy/:policyid/",
+            "params": [
+              {
+                "name": "policyid",
+                "value": "",
+                "type": "path",
+                "description": "Id de la póliza que se requiere editar"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Endpoint para editar pólizas manuales. Es necesario volver a enviar toda la información de la póliza."
+        },
+        {
+          "info": {
+            "name": "Elimina una póliza manual",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/accounting/manual-accounting-policy/:policyid/",
+            "params": [
+              {
+                "name": "policyid",
+                "value": "",
+                "type": "path",
+                "description": "Id de la póliza que se requiere eliminar"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Elimina una póliza manual de los registros del sistema"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

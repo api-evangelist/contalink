@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Contalink Balanza de comprobación Saldo de una cuenta API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Saldo de una cuenta",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obtener el saldo de una cuenta contable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/accounting/get-account-balance/:accountnumber/",
+            "params": [
+              {
+                "name": "accountnumber",
+                "value": "",
+                "type": "path",
+                "description": "Numero de cuenta para la cual se quiere obtener el saldo"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query",
+                "description": "Fecha a la cual se quiere obtener el saldo"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query",
+                "description": "Indica como se quieren tratar las transacciones realizadas en el periodo 13. Las opciones son Incluir (I) u Omitir (O)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Obtiene el saldo de una cuenta contable a una fecha determinada."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

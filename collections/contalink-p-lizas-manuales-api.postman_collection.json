@@ -1,0 +1,520 @@
+{
+  "item": [
+    {
+      "id": "f81d3b09-4078-4a26-9b8c-acbf64c3422d",
+      "name": "Pólizas manuales",
+      "description": {
+        "content": "Gestiona altas, bajas y cambios de las pólizas manuales.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04e1f35a-4a51-40dc-a661-22c518ba7973",
+          "name": "Crea una póliza manual.",
+          "request": {
+            "name": "Crea una póliza manual.",
+            "description": {
+              "content": "Endpoint para crear pólizas manuales.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounting",
+                "manual-accounting-policy",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b9fe071c-e3d4-4ab3-90e1-56aa0f9aaa70",
+              "name": "0 indica error, 1 indica éxito",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    "manual-accounting-policy",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"policy_data\": {\n    \"accounting_records\": {\n      \"account_code\": \"string\",\n      \"credit\": 4807.936465556812,\n      \"debit\": 879.0546500085927\n    },\n    \"description\": \"string\",\n    \"record_date\": \"2009-04-06\"\n  },\n  \"status\": 5427.118165966567\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70db32e0-8877-49f8-bf99-72e3c1869f77",
+          "name": "Elimina una póliza manual",
+          "request": {
+            "name": "Elimina una póliza manual",
+            "description": {
+              "content": "Elimina una póliza manual de los registros del sistema",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounting",
+                "manual-accounting-policy",
+                ":policyid",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "policyid",
+                  "description": "(Required) Id de la póliza que se requiere eliminar"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "914ff8d8-17d8-48bb-b2bd-511df63fe566",
+              "name": "0 indica error, 1 indica éxito. En la respuesta se incluye la información de la póliza eliminada",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    "manual-accounting-policy",
+                    ":policyid",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "policyid",
+                      "description": "(Required) Id de la póliza que se requiere eliminar"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"policy_data\": {\n    \"accounting_records\": {\n      \"account_code\": \"string\",\n      \"credit\": 4807.936465556812,\n      \"debit\": 879.0546500085927\n    },\n    \"description\": \"string\",\n    \"record_date\": \"2009-04-06\"\n  },\n  \"status\": 5427.118165966567\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3a9f37c-81bc-4559-9638-38dadd9fa5c8",
+          "name": "Obtiene una póliza manual",
+          "request": {
+            "name": "Obtiene una póliza manual",
+            "description": {
+              "content": "Obtiene la información de una póliza manual.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounting",
+                "manual-accounting-policy",
+                ":policyid",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "policyid",
+                  "description": "(Required) Id de la póliza que se requiere obtener"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "facbe164-8738-45e3-9b9d-db5dcb8e646d",
+              "name": "0 indica error, 1 indica éxito.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    "manual-accounting-policy",
+                    ":policyid",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "policyid",
+                      "description": "(Required) Id de la póliza que se requiere obtener"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"policy_data\": {\n    \"accounting_records\": {\n      \"account_code\": \"string\",\n      \"credit\": 4807.936465556812,\n      \"debit\": 879.0546500085927\n    },\n    \"description\": \"string\",\n    \"record_date\": \"2009-04-06\"\n  },\n  \"status\": 5427.118165966567\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26b755fa-7c6e-4672-bbbe-031cb8b37dba",
+          "name": "Edita una póliza manual",
+          "request": {
+            "name": "Edita una póliza manual",
+            "description": {
+              "content": "Endpoint para editar pólizas manuales. Es necesario volver a enviar toda la información de la póliza.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounting",
+                "manual-accounting-policy",
+                ":policyid",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "policyid",
+                  "description": "(Required) Id de la póliza que se requiere editar"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a31c5536-19d6-4f07-9939-94dfe9aad723",
+              "name": "0 indica error, 1 indica éxito",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounting",
+                    "manual-accounting-policy",
+                    ":policyid",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "policyid",
+                      "description": "(Required) Id de la póliza que se requiere editar"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"record_date\": \"<date>\",\n  \"description\": \"<string>\",\n  \"accounting_records\": {\n    \"account_code\": \"<string>\",\n    \"debit\": \"<number>\",\n    \"credit\": \"<number>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"policy_data\": {\n    \"accounting_records\": {\n      \"account_code\": \"string\",\n      \"credit\": 4807.936465556812,\n      \"debit\": 879.0546500085927\n    },\n    \"description\": \"string\",\n    \"record_date\": \"2009-04-06\"\n  },\n  \"status\": 5427.118165966567\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "88a34522-c595-4dd3-89e1-a11c739dd9bd",
+    "name": "API Contalink Balanza de comprobación Pólizas manuales API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducción\nDocumentación del API de Contalink\n\n# Autenticación\n\nEl método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.\n\n<SecurityDefinitions />\n",
+      "type": "text/plain"
+    }
+  }
+}

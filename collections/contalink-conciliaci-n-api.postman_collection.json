@@ -1,0 +1,151 @@
+{
+  "item": [
+    {
+      "id": "140feeb1-fe9e-4803-bcfa-931d0f8c6914",
+      "name": "Conciliación",
+      "description": {
+        "content": "Realiza la conciliación por medio del UUID de la factura proporcionada.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "185e2eaf-ac4f-4697-b61b-ea182d84608f",
+          "name": "Crea una conciliación de una factura",
+          "request": {
+            "name": "Crea una conciliación de una factura",
+            "description": {
+              "content": "Endpoint para crear la conciliación de una factura.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conciliation",
+                "create",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invoice_id\": \"<string>\",\n  \"payment_form\": \"<string>\",\n  \"payment_date\": \"<datetime>\",\n  \"amount\": \"<number>\",\n  \"bank_account\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e8abb6b8-fb0d-4e4b-bc8c-bb078e7e921e",
+              "name": "0 indica error, 1 indica éxito",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conciliation",
+                    "create",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"invoice_id\": \"<string>\",\n  \"payment_form\": \"<string>\",\n  \"payment_date\": \"<datetime>\",\n  \"amount\": \"<number>\",\n  \"bank_account\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 4607.156094661482\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "8dba7194-57be-4d41-8033-fc57a9ac9b7b",
+    "name": "API Contalink Balanza de comprobación Conciliación API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introducción\nDocumentación del API de Contalink\n\n# Autenticación\n\nEl método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.\n\n<SecurityDefinitions />\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "API Contalink Balanza de comprobación Conciliación API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conciliación",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Crea una conciliación de una factura",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://794lol2h95.execute-api.us-east-1.amazonaws.com/prod/conciliation/create/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Endpoint para crear la conciliación de una factura."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
