@@ -46,6 +46,17 @@ tags:
 - Invoicing
 - CFDI
 - Mexico
+- Software-as-a-Service
+tags_raw:
+- Company
+- Accounting
+- Bookkeeping
+- Payroll
+- Tax
+- Fintech
+- Invoicing
+- CFDI
+- Mexico
 - SaaS
 apis:
 - aid: contalink:contalink-balanza-de-comprobaci-n-api
