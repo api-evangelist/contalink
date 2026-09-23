@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: '# Introducción
 
@@ -8,13 +8,8 @@ info:
     # Autenticación
 
 
-    El método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.
-
-
-    <SecurityDefinitions />
-
-    '
-  title: API Contalink Balanza de comprobación API
+    El método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.'
+  title: Contalink Balanza de comprobación API
   version: 1.0.4
   x-logo:
     altText: Contalink
@@ -162,6 +157,8 @@ paths:
         source: "wget --no-check-certificate --quiet \\\n   --method GET \\\n   --timeout=0 \\\n   --header 'Accept: application/json' \\\n    '{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>'"
       - lang: Swift
         source: "import Foundation\n#if canImport(FoundationNetworking)\nimport FoundationNetworking\n#endif\n\nvar semaphore = DispatchSemaphore (value: 0)\n\nvar request = URLRequest(url: URL(string: \"{{baseUrl}}/accounting/trial-balance/?start_date=<date>&end_date=<date>&period=<string>\")!,timeoutInterval: Double.infinity)\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Accept\")\n\nrequest.httpMethod = \"GET\"\n\nlet task = URLSession.shared.dataTask(with: request) { data, response, error in \n   guard let data = data else {\n      print(String(describing: error))\n      semaphore.signal()\n      return\n   }\n   print(String(data: data, encoding: .utf8)!)\n   semaphore.signal()\n}\n\ntask.resume()\nsemaphore.wait()\n"
+      operationId: getAccountingTrialBalance
+      x-operation-id-source: derived
 components:
   schemas:
     TrialBalance:

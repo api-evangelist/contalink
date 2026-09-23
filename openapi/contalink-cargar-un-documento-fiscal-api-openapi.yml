@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   description: '# Introducción
 
@@ -8,13 +8,8 @@ info:
     # Autenticación
 
 
-    El método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.
-
-
-    <SecurityDefinitions />
-
-    '
-  title: API Contalink Balanza de comprobación Cargar un documento fiscal API
+    El método de autenticación para el api de contalink es mediante un api key el cual está relacionado forzosamente a un usuario dentro del sistema, por lo cual, todas las peticiones utilizando ese api key quedarán registradas como peticiones del usuario relacionado.'
+  title: Contalink Cargar un documento fiscal API
   version: 1.0.4
   x-logo:
     altText: Contalink
@@ -138,22 +133,10 @@ paths:
         source: "wget --no-check-certificate --quiet \\\n   --method POST \\\n   --timeout=0 \\\n   --header 'Content-Type: application/json' \\\n   --header 'Accept: application/json' \\\n   --header 'Content-Length: ' \\\n   --body-data '{\n  \"xml\": \"<string>\",\n  \"name\": \"<string>\"\n}' \\\n    '{{baseUrl}}/invoices/upload/'"
       - lang: Swift
         source: "import Foundation\n#if canImport(FoundationNetworking)\nimport FoundationNetworking\n#endif\n\nvar semaphore = DispatchSemaphore (value: 0)\n\nlet parameters = \"{\\n  \\\"xml\\\": \\\"<string>\\\",\\n  \\\"name\\\": \\\"<string>\\\"\\n}\"\nlet postData = parameters.data(using: .utf8)\n\nvar request = URLRequest(url: URL(string: \"{{baseUrl}}/invoices/upload/\")!,timeoutInterval: Double.infinity)\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Content-Type\")\nrequest.addValue(\"application/json\", forHTTPHeaderField: \"Accept\")\nrequest.addValue(\"\", forHTTPHeaderField: \"Content-Length\")\n\nrequest.httpMethod = \"POST\"\nrequest.httpBody = postData\n\nlet task = URLSession.shared.dataTask(with: request) { data, response, error in \n   guard let data = data else {\n      print(String(describing: error))\n      semaphore.signal()\n      return\n   }\n   print(String(data: data, encoding: .utf8)!)\n   semaphore.signal()\n}\n\ntask.resume()\nsemaphore.wait()\n"
+      operationId: postInvoicesUpload
+      x-operation-id-source: derived
 components:
   schemas:
-    UploadXML:
-      properties:
-        name:
-          description: Valor opcional, en caso de no existir, se coloca el UUID.
-          title: Nombre del archivo
-          type: string
-        xml:
-          description: El XML en base 64
-          title: XML
-          type: string
-      required:
-      - xml
-      title: UploadXML
-      type: object
     UploadXMLResult:
       properties:
         message:
@@ -169,6 +152,20 @@ components:
         status:
           description: Indica el status de la llamada, 1.- Éxito, 0.- Error
           type: number
+      type: object
+    UploadXML:
+      properties:
+        name:
+          description: Valor opcional, en caso de no existir, se coloca el UUID.
+          title: Nombre del archivo
+          type: string
+        xml:
+          description: El XML en base 64
+          title: XML
+          type: string
+      required:
+      - xml
+      title: UploadXML
       type: object
   securitySchemes:
     APIKey:

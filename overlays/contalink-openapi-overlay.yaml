@@ -2,8 +2,8 @@ overlay: 1.0.0
 info:
   title: API Evangelist enhancements for Contalink API
   version: 1.0.0
-generated: '2026-07-18'
-method: generated
+x-generated: '2026-07-18'
+x-method: generated
 extends: openapi/contalink-openapi-original.json
 actions:
 - target: $.info
