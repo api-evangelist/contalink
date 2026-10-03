@@ -521,6 +521,37 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ManualPolicy:
+      properties:
+        accounting_records:
+          description: Registros contables que componen la póliza
+          properties:
+            account_code:
+              description: Código de la cuenta contable como está registrado en el catálogo contable de Contalink.
+              type: string
+            credit:
+              description: Haber de la registro contable
+              type: number
+            debit:
+              description: Debe de la registro contable
+              type: number
+          required:
+          - account_code
+          - debit
+          - credit
+          type: object
+        description:
+          description: Descripción de la transacción
+          type: string
+        record_date:
+          description: Fecha en la que la póliza afectará contablemente
+          format: date
+          type: string
+      required:
+      - record_date
+      - description
+      - accounting_records
+      type: object
     ManualPolicyResponse:
       properties:
         message:
@@ -553,37 +584,6 @@ components:
         status:
           description: Indica el status de la llamada, 1.- Éxito, 0.- Error
           type: number
-      type: object
-    ManualPolicy:
-      properties:
-        accounting_records:
-          description: Registros contables que componen la póliza
-          properties:
-            account_code:
-              description: Código de la cuenta contable como está registrado en el catálogo contable de Contalink.
-              type: string
-            credit:
-              description: Haber de la registro contable
-              type: number
-            debit:
-              description: Debe de la registro contable
-              type: number
-          required:
-          - account_code
-          - debit
-          - credit
-          type: object
-        description:
-          description: Descripción de la transacción
-          type: string
-        record_date:
-          description: Fecha en la que la póliza afectará contablemente
-          format: date
-          type: string
-      required:
-      - record_date
-      - description
-      - accounting_records
       type: object
   securitySchemes:
     APIKey:
