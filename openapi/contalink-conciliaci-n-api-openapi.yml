@@ -143,6 +143,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ConciliationPolicyResponse:
+      properties:
+        message:
+          description: Mensaje de éxito o de error que acompaña al status
+          type: string
+        status:
+          description: Indica el status de la llamada, 1.- Éxito, 0.- Error
+          type: number
+      type: object
     ConciliationPolicy:
       properties:
         amount:
@@ -167,15 +176,6 @@ components:
       - payment_date
       - amount
       - bank_account
-      type: object
-    ConciliationPolicyResponse:
-      properties:
-        message:
-          description: Mensaje de éxito o de error que acompaña al status
-          type: string
-        status:
-          description: Indica el status de la llamada, 1.- Éxito, 0.- Error
-          type: number
       type: object
   securitySchemes:
     APIKey:
