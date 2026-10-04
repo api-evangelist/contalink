@@ -1,0 +1,44 @@
+slug: contalink
+provider: Contalink
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Pólizas manuales
+  spec_file: contalink-p-lizas-manuales-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.85
+  evidence: POST /accounting/manual-accounting-policy/ — "Crea una póliza manual"; schemas ManualPolicy,
+    ManualPolicyResponse
+  reason: A 'póliza manual' is a manual accounting journal entry; full CRUD over manual journals is squarely
+    General Ledger Management.
+- tag: Saldo de una cuenta
+  spec_file: contalink-saldo-de-una-cuenta-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.85
+  evidence: GET /accounting/get-account-balance/{accountnumber}/ — "Obtener el saldo de una cuenta contable",
+    schema AccountBalance
+  reason: Retrieving the balance of a chart-of-accounts ledger account is a general ledger function, not
+    a banking or customer balance.
+- tag: Balanza de comprobación
+  spec_file: contalink-balanza-de-comprobaci-n-api-openapi.yml
+  capability_id: BC-200.10
+  capability_id_l1: BC-200
+  capability_name: General Ledger Management
+  confidence: 0.8
+  evidence: GET /accounting/trial-balance/ — "Obtener balanza de comprobación", schema TrialBalance
+  reason: Trial balance retrieval from the accounting ledger is a core general-ledger reporting artefact;
+    GL Management is the closest specific capability, with slight ambiguity versus financial reporting.
