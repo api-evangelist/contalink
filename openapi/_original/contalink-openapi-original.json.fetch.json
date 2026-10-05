@@ -1,0 +1,12 @@
+{
+ "url": "https://apidocs.contalink.com/contalink-documentation-openapi3-v1-0-4.json",
+ "requested_url": "https://apidocs.contalink.com/contalink-documentation-openapi3-v1-0-4.json",
+ "status": 200,
+ "content_type": "binary/octet-stream",
+ "bytes": 300387,
+ "sha256": "a165accaf399cda8f3c73913cd77c3dd3c3cb5ae8631ad696ef54a22cba885d0",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
