@@ -2,11 +2,11 @@
   "repo": "contalink",
   "feeds": [
     {
-      "source": "https://tutoriales.contalink.com/es/",
-      "feed_url": "https://tutoriales.contalink.com/es/feed.xml",
+      "source": "https://www.contalink.com/blog",
+      "feed_url": "https://www.contalink.com/blog",
       "title": "",
       "saved": 0,
-      "method": "discovered"
+      "method": "none"
     },
     {
       "source": "https://tutoriales.contalink.com/es/feed.xml",
@@ -16,8 +16,8 @@
       "method": "feed"
     }
   ],
-  "post_count": 101,
-  "fetched": "2026-10-03T12:30:02Z",
+  "post_count": 109,
+  "fetched": "2026-10-10T13:15:00Z",
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
   "feed_nature_note": "Whether these posts are the vendor publishing or its support community, decided on the URL path grammar of the saved posts -- not the hostname, which carries both on Khoros, and not author diversity, which flags large vendor blogs as forums. 'undetermined' means undetermined."
