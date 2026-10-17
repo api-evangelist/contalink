@@ -388,6 +388,46 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    BankTransaction:
+      properties:
+        bank:
+          default: ''
+          description: Banco / Caja / Tarjeta donde se realiza el movimiento bancario
+          title: Banco
+          type: string
+        date:
+          default: ''
+          description: Fecha del movimiento bancario (YYYY-MM-DD)
+          format: date
+          title: Fecha
+          type: string
+        deposit:
+          default: 0
+          description: En caso de ser un depósito a la cuenta, el monto depositado
+          title: Deposito
+          type: number
+        description:
+          default: ''
+          description: Descripción del movimiento bancario
+          title: Descripción
+          type: string
+        reference:
+          default: ''
+          description: Referencia del movimiento bancario
+          title: Referencia
+          type: string
+        withdrawal:
+          default: 0
+          description: En caso de ser un retiro de la cuenta, el monto retirado
+          title: Retiro
+          type: number
+      required:
+      - reference
+      - date
+      - bank
+      - deposit
+      - withdrawal
+      type: object
     BankTransactionResult:
       description: Contiene el resultado de la petición al endpoint de movimientos bancarios.
       properties:
@@ -443,46 +483,6 @@ components:
           title: Movimiento Bancario
           type: object
       title: Resultado de la petición al endpoint de movimientos bancarios
-      type: object
-    BankTransaction:
-      properties:
-        bank:
-          default: ''
-          description: Banco / Caja / Tarjeta donde se realiza el movimiento bancario
-          title: Banco
-          type: string
-        date:
-          default: ''
-          description: Fecha del movimiento bancario (YYYY-MM-DD)
-          format: date
-          title: Fecha
-          type: string
-        deposit:
-          default: 0
-          description: En caso de ser un depósito a la cuenta, el monto depositado
-          title: Deposito
-          type: number
-        description:
-          default: ''
-          description: Descripción del movimiento bancario
-          title: Descripción
-          type: string
-        reference:
-          default: ''
-          description: Referencia del movimiento bancario
-          title: Referencia
-          type: string
-        withdrawal:
-          default: 0
-          description: En caso de ser un retiro de la cuenta, el monto retirado
-          title: Retiro
-          type: number
-      required:
-      - reference
-      - date
-      - bank
-      - deposit
-      - withdrawal
       type: object
   securitySchemes:
     APIKey:
