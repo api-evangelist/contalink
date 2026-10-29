@@ -64,6 +64,134 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Contalink is a company surfaced as a portfolio company of 500-global and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Contalink is a Mexican cloud accounting and payroll platform ("contabilidad en la nube") built for independent accountants, accounting firms (despachos) and SMEs. It automates repetitive Mexican fiscal work — bulk CFDI download and classification, electronic accounting, DIOT preparation, treasury and bank reconciliation, invoicing (facturación) and payroll (nómina) with digital stamping — across multiple companies and users. Contalink also exposes a REST API that lets external systems read and post accounting data: trial balance (balanza de comprobación), account balances, manual accounting policies (pólizas manuales), invoice reconciliation (conciliación), bank transactions (movimientos bancarios) and CFDI fiscal-document listing, upload and status checks. The API authenticates with a per-company API key sent in the Authorization header. Backed by 500 Global.
 
-Backed by: 500-global — https://contalink.com
+**Areas:** Company · Accounting · Bookkeeping · Payroll · Tax · Fintech · Invoicing · CFDI · Mexico · Software-as-a-Service
+
+## Contalink on APIs.io
+
+Everything profiled for Contalink is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/contalink/](https://apis.io/providers/contalink/)** — or go straight to one of the APIs or properties below.
+
+### APIs (8)
+
+- [Contalink Balanza de comprobación API](https://apis.io/apis/contalink/contalink-balanza-de-comprobaci-n-api/) — Obtiene la balanza de comprobación según los parámetros enviados
+- [Contalink Cargar un documento fiscal API](https://apis.io/apis/contalink/contalink-cargar-un-documento-fiscal-api/) — Carga un documento fiscal al sistema
+- [Contalink Conciliación API](https://apis.io/apis/contalink/contalink-conciliaci-n-api/) — Realiza la conciliación por medio del UUID de la factura proporcionada.
+- [Contalink Listado de documentos fiscales API](https://apis.io/apis/contalink/contalink-listado-de-documentos-fiscales-api/) — Obtiene un listado de los documentos fiscales que correspondan a los filtros enviados
+- [Contalink Movimientos bancarios API](https://apis.io/apis/contalink/contalink-movimientos-bancarios-api/) — Gestiona altas y bajas de los movimientos que se dan en los bancos, tarjetas, cajas, etc.
+- [Contalink Pólizas manuales API](https://apis.io/apis/contalink/contalink-p-lizas-manuales-api/) — Gestiona altas, bajas y cambios de las pólizas manuales.
+- [Contalink Saldo de una cuenta API](https://apis.io/apis/contalink/contalink-saldo-de-una-cuenta-api/) — Obtiene el saldo de una cuenta contable
+- [Contalink Status de documentos fiscales API](https://apis.io/apis/contalink/contalink-status-de-documentos-fiscales-api/) — Valida los status de vigencia y pago de un documento fiscal
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [contalink](https://apis.io/servers/contalink/contalink/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Contalink Agentic Access](https://apis.io/agentic-access/contalink/contalink-agentic-access/)
+
+#### Collections (8)
+
+Postman and Open Collection request collections.
+
+- [API Contalink Balanza de comprobación API](https://apis.io/collections/contalink/open-contalink-balanza-de-comprobaci-n-api/)
+- [API Contalink Balanza de comprobación Cargar un documento fiscal API](https://apis.io/collections/contalink/open-contalink-cargar-un-documento-fiscal-api/)
+- [API Contalink Balanza de comprobación Conciliación API](https://apis.io/collections/contalink/open-contalink-conciliaci-n-api/)
+- [API Contalink Balanza de comprobación Listado de documentos fiscales API](https://apis.io/collections/contalink/open-contalink-listado-de-documentos-fiscales-api/)
+- [API Contalink Balanza de comprobación Movimientos bancarios API](https://apis.io/collections/contalink/open-contalink-movimientos-bancarios-api/)
+- [API Contalink Balanza de comprobación Pólizas manuales API](https://apis.io/collections/contalink/open-contalink-p-lizas-manuales-api/)
+- [API Contalink Balanza de comprobación Saldo de una cuenta API](https://apis.io/collections/contalink/open-contalink-saldo-de-una-cuenta-api/)
+- [API Contalink Balanza de comprobación Status de documentos fiscales API](https://apis.io/collections/contalink/open-contalink-status-de-documentos-fiscales-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Contalink Openapi Overlay](https://apis.io/overlays/contalink/contalink-openapi-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Contalink Authentication](https://apis.io/security/contalink/contalink-authentication/)
+- [Contalink Domain Security](https://apis.io/security/contalink/contalink-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://contalink.com)
+- [Documentation](https://tutoriales.contalink.com/es/)
+- [Getting started](https://tutoriales.contalink.com/es/articles/8569647-configuracion-api)
+- [API reference](https://apidocs.contalink.com)
+- [Pricing](https://www.contalink.com/precios)
+- [Sign up](https://contalink.com/empezarahora)
+- [Support](https://tutoriales.contalink.com/es/)
+- [Blog](https://www.contalink.com/blog)
+- [Privacy policy](https://contalink.com/terms-conditions)
+- [GitHub](https://github.com/Contalink)
+- [Status](https://estatus.contalink.com/)
+
+## API Evangelist rating
+
+**Kin Score 40.6** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 48.6 |
+| Contract governance | 4.5 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 58.9 |
+| Access clarity | 34.2 |
+
+**Agent readiness 19.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 20.6** — Employment & Payroll
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/contalink/](https://apis.io/providers/contalink/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Contalink: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/contalink/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
